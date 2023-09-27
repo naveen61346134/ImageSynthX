@@ -54,6 +54,7 @@ if __name__ == "__main__":
         print("""\n
             [1] Image upscaler (REAL ESRGAN)
             [2] Text to image (SDXL)
+            [0] EXIT
         """)
         choice = input("\nEnter choice: ")
         if choice == "1":
