@@ -35,14 +35,14 @@ def esrgan():
 def sdxl():
     prompt = input("Enter prompt for image: ")
     out_file_name = input("Enter output file name: ")
-    width = input("Enter width: ")
-    height = input("Enter hieight: ")
+    width = int(input("Enter width: "))
+    height = int(input("Enter hieight: "))
     output = replicate.run(
         "stability-ai/sdxl:8beff3369e81422112d93b89ca01426147de542cd4684c244b673b105188fe5f",
-        input={"prompt": f"{prompt}", "width": f"{width}", "height": f"{height}", "apply_watermark": False}
+        input={"prompt": f"{prompt}", "width": width, "height": height, "apply_watermark": False}
     )
     out_f = dir_path + f"\\{out_file_name}.jpeg"
-    wget.download(str(output), out=out_f)
+    wget.download(str(output[0]), out=out_f)
     if os.path.exists(f"{out_file_name}.jpeg"):
         print("\nFile created!")
     else:
