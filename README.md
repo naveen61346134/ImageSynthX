@@ -1,4 +1,4 @@
-# REPLICATE IMAGE SYNTHESIZER AND GENERATOR
+# ImageSynthX (Image Synthesizer And Generator)
 
 ## Description
 
