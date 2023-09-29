@@ -43,7 +43,7 @@ def file_path_and_check(png):
 
 
 def esrgan():
-    file_path, out_f, out_file_name = file_path_and_check()
+    file_path, out_f, out_file_name = file_path_and_check(False)
     try:
         upscale = int(input("Enter upscale value: "))
     except ValueError:
