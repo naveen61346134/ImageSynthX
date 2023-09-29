@@ -1,0 +1,90 @@
+# REPLICATE AI MODEL ACCESS
+
+## Description
+
+This project focuses on accessing Replicate AI models such as Real Esrgan, SDXL, and Cartoonify using a Replicate API token. It allows you to interact with these models programmatically.
+
+## Table of Contents
+
+- [Installation](#installation)
+- [Usage](#usage)
+- [API Token](#api-token)
+- [Models](#models)
+- [Contributing](#contributing)
+- [License](#license)
+
+## Installation
+
+To get started with this project, follow these steps:
+
+1. Clone the repository to your local machine:
+
+   ```
+   git clone https://github.com/naveen61346134/REPLICATE-API-CALLS.git
+   ```
+
+2. Navigate to the `Model Access` directory:
+
+   ```
+   cd REPLICATE-API-CALLS/Model\ Access
+   ```
+
+3. Install the required dependencies:
+
+   ```
+   run "installer.bat"
+   ```
+
+## Usage
+
+To use this project, you need to obtain a Replicate API token (see [API Token](#api-token) section). Once you have the token, you can run the `main.py` script to access Replicate AI models. Here's how to use it:
+
+```python
+python main.py
+```
+
+Follow the prompts to select a model and provide any required inputs.
+
+## API Token
+
+To access Replicate AI models, you'll need an API token. Follow these steps to obtain a token:
+
+1. Visit the [Replicate AI website](https://www.replicate.ai/).
+
+2. Sign in or create an account if you haven't already.
+
+3. Generate an API token in your account settings.
+
+4. Save the generated token in a file named `token.txt` in the same directory as `main.py`.
+
+## Models
+
+This project currently supports the following Replicate AI models:
+
+- **Real Esrgan**: RealESRGAN is an advanced AI model that enhances image resolution and upscales content, producing sharper and more detailed visuals through deep learning techniques.
+
+- **SDXL**: SDXL is the evolutionary successor to the Stable Diffusion AI model, renowned for its ability to transform text prompts into high-quality, photorealistic images, pushing the boundaries of text-to-image generation.
+
+- **Cartoonify**: Cartoonify is an AI model that transforms real images into high-quality cartoon-style representations, adding a playful and artistic touch to photographs and visuals.
+
+Feel free to add more models and documentation as needed.
+
+## Contributing
+
+If you'd like to contribute to this project, please follow these guidelines:
+
+1. Fork the repository on GitHub.
+
+2. Create a new branch for your feature or bug fix.
+
+3. Make your changes and commit them with clear and concise commit messages.
+
+4. Push your changes to your fork.
+
+5. Create a pull request to merge your changes into the main repository.
+
+## License
+
+This project is licensed under the [MIT License](LICENSE).
+
+---
