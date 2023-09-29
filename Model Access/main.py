@@ -50,10 +50,18 @@ def esrgan():
         upscale = 4
 
     print("Processing...")
-    output = replicate.run(
-        "cjwbw/real-esrgan:d0ee3d708c9b911f122a4ad90046c5d26a0293b99476d697f6bb7f2e251ce2d4",
-        input={"image": open(file_path, "rb"), "upscale": upscale}
-    )
+    try:
+        output = replicate.run(
+            "cjwbw/real-esrgan:d0ee3d708c9b911f122a4ad90046c5d26a0293b99476d697f6bb7f2e251ce2d4",
+            input={"image": open(file_path, "rb"), "upscale": upscale}
+        )
+    except Exception as e:
+        if "NSFW" in str(e):
+            print("NSFW Content Detected")
+            time.sleep(1)
+            exit(1)
+        else:
+            print(str(e))
     print("Downloading...")
     download(str(output), out_f, out_file_name)
 
@@ -68,10 +76,18 @@ def sdxl():
         width = 1024
         height = 1024
     print("Processing...")
-    output = replicate.run(
-        "stability-ai/sdxl:8beff3369e81422112d93b89ca01426147de542cd4684c244b673b105188fe5f",
-        input={"prompt": f"{prompt}", "width": width, "height": height, "apply_watermark": False}
-    )
+    try:
+        output = replicate.run(
+            "stability-ai/sdxl:8beff3369e81422112d93b89ca01426147de542cd4684c244b673b105188fe5f",
+            input={"prompt": f"{prompt}", "width": width, "height": height, "apply_watermark": False}
+        )
+    except Exception as e:
+        if "NSFW" in str(e):
+            print("NSFW Content Detected")
+            time.sleep(1)
+            exit(1)
+        else:
+            print(str(e))
     out_f = dir_path + f"\\{out_file_name}.jpeg"
     print("Downloading...")
     download(str(output[0]), out_f, out_file_name)
@@ -80,12 +96,47 @@ def sdxl():
 def cartoonify():
     file_path, out_f, out_file_name = file_path_and_check(True)
     print("Processing...")
-    output = replicate.run(
-        "catacolabs/cartoonify:043a7a0bb103cd8ce5c63e64161eae63a99f01028b83aa1e28e53a42d86191d3",
-        input={"image": open(file_path, "rb")}
-    )
+    try:
+        output = replicate.run(
+            "catacolabs/cartoonify:043a7a0bb103cd8ce5c63e64161eae63a99f01028b83aa1e28e53a42d86191d3",
+            input={"image": open(file_path, "rb")}
+        )
+    except Exception as e:
+        if "NSFW" in str(e):
+            print("NSFW Content Detected")
+            time.sleep(1)
+            exit(1)
+        else:
+            print(str(e))
     print("Downloading...")
     download(str(output), out_f, out_file_name, True)
+
+
+def anime_anything():
+    prompt = input("Enter prompt for image: ")
+    out_file_name = input("Enter output file name: ")
+    try:
+        width = int(input("Enter width: "))
+        height = int(input("Enter hieight: "))
+    except ValueError:
+        width = 512
+        height = 512
+    print("Processing...")
+    try:
+        output = replicate.run(
+            "cjwbw/anything-v4.0:42a996d39a96aedc57b2e0aa8105dea39c9c89d9d266caf6bb4327a1c191b061",
+            input={"prompt": prompt, "width": width, "height": height}
+        )
+    except Exception as e:
+        if "NSFW" in str(e):
+            print("NSFW Content Detected")
+            time.sleep(1)
+            exit(1)
+        else:
+            print(str(e))
+    print("Downloading...")
+    out_f = dir_path + f"\\{out_file_name}.png"
+    download(str(output[0]), out_f, out_file_name, True)
 
 
 if __name__ == "__main__":
@@ -95,6 +146,7 @@ if __name__ == "__main__":
                 [1] Image upscaler (REAL ESRGAN)
                 [2] Text to image (SDXL)
                 [3] Cartoonify (CARTOONIFY)
+                [4] Anime (ANYTHING V4.0) -> MAX RES: [1024x768 or 768x1024]
                 [0] EXIT
             """)
             choice = input("\nEnter choice: ")
@@ -104,6 +156,8 @@ if __name__ == "__main__":
                 sdxl()
             elif choice == "3":
                 cartoonify()
+            elif choice == "4":
+                anime_anything()
             elif choice == "0":
                 exit(0)
             else:
