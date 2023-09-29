@@ -2,6 +2,8 @@
 
 ## Description
 
+mageSynthX: Unleash the Power of AI Models for High-Resolution Image Synthesis and Enhancement. Transform your images with cutting-edge AI, including Real Esrgan, SDXL (Advanced Stable Diffusion), and Cartoonify, to generate stunning, high-quality, and razor-sharp visuals.
+
 This project focuses on image synthesizing and generating high scale resolution images wth Replicate AI models such as Real Esrgan, SDXL, and Cartoonify using a Replicate API token. It allows you to interact with these models programmatically.
 
 ## Table of Contents
