@@ -67,6 +67,8 @@ This project currently supports the following Replicate AI models:
 
 - **Cartoonify**: Cartoonify is an AI model that transforms real images into high-quality cartoon-style representations, adding a playful and artistic touch to photographs and visuals.
 
+- *NOTE*: Processing may take more time than expected due to cold boot of Ai Models
+
 Feel free to add more models and documentation as needed.
 
 ## Contributing
