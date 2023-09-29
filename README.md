@@ -1,8 +1,8 @@
-# REPLICATE AI MODEL ACCESS
+# REPLICATE IMAGE SYNTHESIZER AND GENERATOR
 
 ## Description
 
-This project focuses on accessing Replicate AI models such as Real Esrgan, SDXL, and Cartoonify using a Replicate API token. It allows you to interact with these models programmatically.
+This project focuses on image synthesizing and generating high scale resolution images wth Replicate AI models such as Real Esrgan, SDXL, and Cartoonify using a Replicate API token. It allows you to interact with these models programmatically.
 
 ## Table of Contents
 
