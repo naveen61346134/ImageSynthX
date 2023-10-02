@@ -61,7 +61,7 @@ To access Replicate AI models, you'll need an API token. Follow these steps to o
 
 This project currently supports the following Replicate AI models:
 
-- **Real Esrgan**: RealESRGAN is an advanced AI model that enhances image resolution and upscales content, producing sharper and more detailed visuals through deep learning techniques.
+- **Real Esrgan**: Real ESRGAN is an advanced AI model that enhances image resolution and upscales content, producing sharper and more detailed visuals through deep learning techniques.
 
 - **SDXL**: SDXL is the evolutionary successor to the Stable Diffusion AI model, renowned for its ability to transform text prompts into high-quality, photorealistic images, pushing the boundaries of text-to-image generation.
 
