@@ -43,7 +43,7 @@ def file_path_and_check(png):
 
 
 def esrgan():
-    file_path, out_f, out_file_name = file_path_and_check(False)
+    file_path, out_f, out_file_name = file_path_and_check(True)
     try:
         upscale = int(input("Enter upscale value: "))
     except ValueError:
@@ -52,7 +52,7 @@ def esrgan():
     print("Processing...")
     try:
         output = replicate.run(
-            "cjwbw/real-esrgan:d0ee3d708c9b911f122a4ad90046c5d26a0293b99476d697f6bb7f2e251ce2d4",
+            "nightmareai/real-esrgan:42fed1c4974146d4d2414e2be2c5277c7fcf05fcc3a73abf41610695738c1d7b",
             input={"image": open(file_path, "rb"), "upscale": upscale}
         )
     except Exception as e:
@@ -63,7 +63,7 @@ def esrgan():
         else:
             print(str(e))
     print("Downloading...")
-    download(str(output), out_f, out_file_name)
+    download(str(output), out_f, out_file_name, True)
 
 
 def sdxl():
@@ -90,7 +90,7 @@ def sdxl():
             print(str(e))
     out_f = dir_path + f"\\{out_file_name}.jpeg"
     print("Downloading...")
-    download(str(output[0]), out_f, out_file_name)
+    download(str(output[0]), out_f, out_file_name, False)
 
 
 def cartoonify():
