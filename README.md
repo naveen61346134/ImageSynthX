@@ -74,7 +74,7 @@ This project currently supports the following Replicate AI models:
 Feel free to add more models and documentation as needed.
 
 ## Output
-Below are two of the images produced using this project.  
+Below are some of the images produced using this project.  
 
 ![OUTPUT 1](https://github.com/naveen61346134/ImageSynthX-Outputs/blob/main/asr.jpeg)
 *Image produced using SDXL (can be used in combination with Real Esrgan to produce more high quality and sharpened image)*
