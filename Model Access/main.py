@@ -12,20 +12,22 @@ except FileNotFoundError:
     time.sleep(1)
     exit(1)
 dir_path = os.getcwd()
+os.system("mkdir Output")
 
 
 def download(url, out_f, out_file_name, png_check):
     wget.download(str(url), out=out_f)
-    if png_check ==  True:
-        file_ext = f"{out_file_name}.png"
+    if png_check == True:
+        file_ext = f"\\Output\\{out_file_name}.png"
     else:
-        file_ext = f"{out_file_name}.jpeg"
-
-    if os.path.exists(file_ext):
+        file_ext = f"\\Output\\{out_file_name}.jpeg"
+    exist = dir_path+file_ext
+    if os.path.exists(exist):
         print("\nFile Created!")
     else:
         print("\nERROR")
     time.sleep(2)
+
 
 def file_path_and_check(png):
     file_path = input("Enter complete file path: ")
@@ -36,9 +38,9 @@ def file_path_and_check(png):
         print("File doesnt exist!")
         exit(1)
     if png == True:
-        out_f = dir_path + f"\\{out_file_name}.png"
+        out_f = dir_path + f"\\Output\\{out_file_name}.png"
     else:
-        out_f = dir_path + f"\\{out_file_name}.jpeg"
+        out_f = dir_path + f"\\Output\\{out_file_name}.jpeg"
     return file_path, out_f, out_file_name
 
 
@@ -79,7 +81,8 @@ def sdxl():
     try:
         output = replicate.run(
             "stability-ai/sdxl:8beff3369e81422112d93b89ca01426147de542cd4684c244b673b105188fe5f",
-            input={"prompt": f"{prompt}", "width": width, "height": height, "apply_watermark": False}
+            input={"prompt": f"{prompt}", "width": width,
+                   "height": height, "apply_watermark": False}
         )
     except Exception as e:
         if "NSFW" in str(e):
@@ -90,7 +93,7 @@ def sdxl():
             print(str(e))
     out_f = dir_path + f"\\{out_file_name}.jpeg"
     print("Downloading...")
-    download(str(output[0]), out_f, out_file_name, False)
+    download(str(output[0]), out_f, out_file_name)
 
 
 def cartoonify():
