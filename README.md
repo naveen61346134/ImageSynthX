@@ -76,14 +76,11 @@ Feel free to add more models and documentation as needed.
 ## Output
 Below are some of the images produced using this project.  
 
-![OUTPUT 1](https://github.com/naveen61346134/ImageSynthX-Outputs/blob/main/asr.jpeg)
-*Image produced using SDXL (can be used in combination with Real Esrgan to produce more high quality and sharpened image)*
+![OUTPUT 1](https://github.com/naveen61346134/ImageSynthX-Outputs/blob/main/repl2%20(1).png)
 
-![OUTPUT 2](https://github.com/naveen61346134/ImageSynthX-Outputs/blob/main/new.jpeg)
-*Image produced using SDXL (can be used in combination with Real Esrgan to produce more high quality and sharpened image)*
+![OUTPUT 2](https://github.com/naveen61346134/ImageSynthX-Outputs/blob/main/repl2%20(2).png)
 
 ![OUTPUT 3](https://github.com/naveen61346134/ImageSynthX-Outputs/blob/main/cat.jpeg)
-*Image produced using SDXL (can be used in combination with Real Esrgan to produce more high quality and sharpened image)*
 
 ## Contributing
 
