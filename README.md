@@ -2,7 +2,7 @@
 
 ## Description
 
-**ImageSynthX**: Unleash the Power of AI Models for High-Resolution Image Synthesis and Enhancement. Transform your images with cutting-edge AI, including **`Real Esrgan`**,**`SDXL (Advanced Stable Diffusion)`**, and **`Cartoonify`**, to generate stunning, high-quality, and razor-sharp visuals.
+**ImageSynthX**: Unleash the Power of AI Models for High-Resolution Image Synthesis and Enhancement. Transform your images with cutting-edge AI, including **`Real Esrgan`**, **`SDXL (Advanced Stable Diffusion)`**, and **`Cartoonify`**, to generate stunning, high-quality, and razor-sharp visuals.
 
 ## Table of Contents
 
