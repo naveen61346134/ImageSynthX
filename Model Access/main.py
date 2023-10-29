@@ -42,8 +42,9 @@ def download(url, out_f, out_file_name, png_check):
 
 
 def file_path_and_check(png):
-    file_path = input(Fore.BLUE + "Enter complete file path: " + Fore.CYAN)
-    out_file_name = input(Fore.BLUE + "Enter output file name: " + Fore.CYAN)
+    file_path = input(Fore.BLUE + "\t\tEnter complete file path: " + Fore.CYAN)
+    out_file_name = input(
+        Fore.BLUE + "\t\tEnter output file name: " + Fore.CYAN)
     if os.path.exists(file_path):
         pass
     else:
@@ -72,11 +73,17 @@ def esrgan():
         )
     except Exception as e:
         if "NSFW" in str(e):
-            print("NSFW Content Detected")
+            print(Fore.RED + "\t\tNSFW Content Detected")
+            time.sleep(1)
+            exit(1)
+        elif "CUDA" or "memory" in str(e):
+            print(Fore.RED + "\t\tMODEL ERROR: CUDA OUT OF MEMORY")
             time.sleep(1)
             exit(1)
         else:
             print(str(e))
+            time.sleep(2)
+            exit(1)
     print(Fore.MAGENTA + "\t\tDownloading...")
     download(str(output), out_f, out_file_name, True)
 
@@ -104,11 +111,16 @@ def sdxl():
         )
     except Exception as e:
         if "NSFW" in str(e):
-            print("NSFW Content Detected")
+            print(Fore.RED + "NSFW Content Detected")
+            time.sleep(1)
+            exit(1)
+        elif "CUDA" or "memory" in str(e):
+            print(Fore.RED + "\t\tMODEL ERROR: CUDA OUT OF MEMORY")
             time.sleep(1)
             exit(1)
         else:
             print(str(e))
+
     out_f = dir_path + f"\\Output\\{out_file_name}.jpeg"
     print(Fore.MAGENTA + "\t\tDownloading...")
     download(str(output[0]), out_f, out_file_name, False)
@@ -134,6 +146,10 @@ def latent_consistency_model():
     except Exception as e:
         if "NSFW" in str(e):
             print("\t\tNSFW Content Detected")
+            time.sleep(1)
+            exit(1)
+        elif "CUDA" or "memory" in str(e):
+            print(Fore.RED + "\t\tMODEL ERROR: CUDA OUT OF MEMORY")
             time.sleep(1)
             exit(1)
         else:
@@ -162,6 +178,10 @@ def anime_anything():
     except Exception as e:
         if "NSFW" in str(e):
             print(Fore.RED + "\t\tNSFW Content Detected")
+            time.sleep(1)
+            exit(1)
+        elif "CUDA" or "memory" in str(e):
+            print(Fore.RED + "\t\tMODEL ERROR: CUDA OUT OF MEMORY")
             time.sleep(1)
             exit(1)
         else:
