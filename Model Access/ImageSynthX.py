@@ -14,7 +14,7 @@ def program_init():
         if len(token) <= 10:
             print(Fore.RED + "\t\tINVALID TOKEN")
             time.sleep(2)
-            exit(1)
+            exit(0)
         else:
             os.environ["REPLICATE_API_TOKEN"] = f"{token}"
     except FileNotFoundError:
@@ -38,7 +38,7 @@ def download(url, out_f, out_file_name, png_check):
         time.sleep(1)
         os.system("cls")
     else:
-        print("\nERROR")
+        print(Fore.RED + "\n\t\tERROR")
         time.sleep(1)
         os.system("cls")
     time.sleep(2)
