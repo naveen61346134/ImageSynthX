@@ -4,23 +4,26 @@ import time
 import replicate
 from colorama import Fore, Style
 
-try:
-    with open("token.txt", "r") as t:
-        token = t.readline()
-    if len(token) <= 10:
-        print(Fore.RED + "\t\tINVALID TOKEN")
-        time.sleep(2)
-        exit(1)
-    else:
-        os.environ["REPLICATE_API_TOKEN"] = f"{token}"
-except FileNotFoundError:
-    print(Fore.RED + "\t\tTOKEN FILE NOT FOUND!")
-    time.sleep(1)
-    exit(0)
 dir_path = os.getcwd()
-if not os.path.exists("Output"):
-    os.system("mkdir Output")
-    print(Fore.CYAN + "Output folder has been created!")
+
+
+def program_init():
+    try:
+        with open("token.txt", "r") as t:
+            token = t.readline()
+        if len(token) <= 10:
+            print(Fore.RED + "\t\tINVALID TOKEN")
+            time.sleep(2)
+            exit(1)
+        else:
+            os.environ["REPLICATE_API_TOKEN"] = f"{token}"
+    except FileNotFoundError:
+        print(Fore.RED + "\t\tTOKEN FILE NOT FOUND!")
+        time.sleep(1)
+        exit(0)
+    if not os.path.exists("Output"):
+        os.system("mkdir Output")
+        print(Fore.CYAN + "Output folder has been created!")
 
 
 def download(url, out_f, out_file_name, png_check):
@@ -77,6 +80,10 @@ def esrgan():
             print(Fore.RED + "\t\tNSFW Content Detected")
             time.sleep(1)
             exit(0)
+        elif "getaddrinfo" in str(e):
+            print(Fore.RED + "\t\tNetwork Error")
+            time.sleep(1)
+            exit(0)
         elif "CUDA" or "memory" in str(e):
             print(Fore.RED + "\t\tMODEL ERROR: CUDA OUT OF MEMORY")
             time.sleep(1)
@@ -123,6 +130,10 @@ def sdxl():
             print(Fore.RED + "NSFW Content Detected")
             time.sleep(1)
             exit(0)
+        elif "getaddrinfo" in str(e):
+            print(Fore.RED + "\t\tNetwork Error")
+            time.sleep(1)
+            exit(0)
         elif "CUDA" or "memory" in str(e):
             print(Fore.RED + "\t\tMODEL ERROR: CUDA OUT OF MEMORY")
             time.sleep(1)
@@ -165,6 +176,10 @@ def latent_consistency_model():
             print("\t\tNSFW Content Detected")
             time.sleep(1)
             exit(0)
+        elif "getaddrinfo" in str(e):
+            print(Fore.RED + "\t\tNetwork Error")
+            time.sleep(1)
+            exit(0)
         elif "CUDA" or "memory" in str(e):
             print(Fore.RED + "\t\tMODEL ERROR: CUDA OUT OF MEMORY")
             time.sleep(1)
@@ -205,6 +220,10 @@ def anime_anything():
             print(Fore.RED + "\t\tNSFW Content Detected")
             time.sleep(1)
             exit(0)
+        elif "getaddrinfo" in str(e):
+            print(Fore.RED + "\t\tNetwork Error")
+            time.sleep(1)
+            exit(0)
         elif "CUDA" or "memory" in str(e):
             print(Fore.RED + "\t\tMODEL ERROR: CUDA OUT OF MEMORY")
             time.sleep(1)
@@ -214,6 +233,16 @@ def anime_anything():
     print(Fore.MAGENTA + "\t\tDownloading...")
     out_f = dir_path + f"\\{out_file_name}.png"
     download(str(output[0]), out_f, out_file_name, True)
+
+
+def PCredits():
+    os.system("cls")
+    print(Fore.RED + """
+                        Image-SynthX\n""" + Fore.BLUE + """
+                Programming:""" + Fore.CYAN + """ Naveen William""")
+    time.sleep(2)
+    os.system("cls")
+    loader()
 
 
 def loader():
@@ -226,6 +255,7 @@ def loader():
                   Fore.CYAN + """\n\t\t[2]""" + Fore.GREEN + """ Text to image""" + Fore.YELLOW + """ (SDXL)""" +
                   Fore.CYAN + """\n\t\t[3]""" + Fore.GREEN + """ Text to image generation""" + Fore.YELLOW + """ (HIGH RES CARTOON)(LATENT-CONSISTENCY-MODEL)""" +
                   Fore.CYAN + """\n\t\t[4]""" + Fore.GREEN + """ Anime""" + Fore.YELLOW + """ (ANYTHING V4.0) -> MAX RES: [1024x768 or 768x1024]""" +
+                  Fore.CYAN + """\n\t\t[C]""" + Fore.GREEN + """ Credits""" +
                   Fore.CYAN + """\n\t\t[0]""" + Fore.GREEN + """ EXIT
             """)
             choice = input(Fore.BLUE + Style.BRIGHT +
@@ -238,16 +268,21 @@ def loader():
                 latent_consistency_model()
             elif choice == "4":
                 anime_anything()
+            elif choice == "C":
+                PCredits()
             elif choice == "0":
                 print(Fore.RED + "\t\tExiting..")
                 time.sleep(1)
                 exit(0)
             else:
                 print(Fore.RED + "\t\tInvalid Choice\n")
+                time.sleep(1)
+                os.system("cls")
     except KeyboardInterrupt:
-        print(Fore.RED + "\n\t\tInterrupt Detected..")
+        print(Fore.RED + "\n\t\tKeyboard Interrupt Detected..")
         time.sleep(1)
         exit(0)
 
 
+program_init()
 loader()
