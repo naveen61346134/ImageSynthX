@@ -8,15 +8,15 @@ try:
     with open("token.txt", "r") as t:
         token = t.readline()
     if len(token) <= 10:
-        print(Fore.RED + "INVALID TOKEN")
+        print(Fore.RED + "\t\tINVALID TOKEN")
         time.sleep(2)
         exit(1)
     else:
         os.environ["REPLICATE_API_TOKEN"] = f"{token}"
 except FileNotFoundError:
-    print(Fore.RED + "TOKEN FILE NOT FOUND!")
+    print(Fore.RED + "\t\tTOKEN FILE NOT FOUND!")
     time.sleep(1)
-    exit(1)
+    exit(0)
 dir_path = os.getcwd()
 if not os.path.exists("Output"):
     os.system("mkdir Output")
@@ -48,8 +48,9 @@ def file_path_and_check(png):
     if os.path.exists(file_path):
         pass
     else:
-        print("File doesnt exist!")
-        exit(1)
+        print(Fore.RED + "\t\tFile doesnt exist!")
+        time.sleep(1)
+        exit(0)
     if png == True:
         out_f = dir_path + f"\\Output\\{out_file_name}.png"
     else:
@@ -75,15 +76,15 @@ def esrgan():
         if "NSFW" in str(e):
             print(Fore.RED + "\t\tNSFW Content Detected")
             time.sleep(1)
-            exit(1)
+            exit(0)
         elif "CUDA" or "memory" in str(e):
             print(Fore.RED + "\t\tMODEL ERROR: CUDA OUT OF MEMORY")
             time.sleep(1)
-            exit(1)
+            exit(0)
         else:
             print(str(e))
             time.sleep(2)
-            exit(1)
+            exit(0)
     print(Fore.MAGENTA + "\t\tDownloading...")
     download(str(output), out_f, out_file_name, True)
 
@@ -99,6 +100,14 @@ def sdxl():
     try:
         width = int(input(Fore.BLUE + "\t\tEnter width: " + Fore.CYAN))
         height = int(input(Fore.BLUE + "\t\tEnter hieight: " + Fore.CYAN))
+
+        wDiv8 = len(str(width/8).split(".")[1])
+        lDiv8 = len(str(height/8).split(".")[1])
+
+        if wDiv8 > 1 or lDiv8 > 1:
+            print(Fore.RED + "\t\tHeight and Width should be divisible by 8")
+            time.sleep(2)
+            exit(0)
     except ValueError:
         width = 720
         height = 720
@@ -113,11 +122,11 @@ def sdxl():
         if "NSFW" in str(e):
             print(Fore.RED + "NSFW Content Detected")
             time.sleep(1)
-            exit(1)
+            exit(0)
         elif "CUDA" or "memory" in str(e):
             print(Fore.RED + "\t\tMODEL ERROR: CUDA OUT OF MEMORY")
             time.sleep(1)
-            exit(1)
+            exit(0)
         else:
             print(str(e))
 
@@ -133,6 +142,14 @@ def latent_consistency_model():
     try:
         width = int(input(Fore.BLUE + "\t\tEnter width: " + Fore.CYAN))
         height = int(input(Fore.BLUE + "\t\tEnter hieight: " + Fore.CYAN))
+
+        wDiv8 = len(str(width/8).split(".")[1])
+        lDiv8 = len(str(height/8).split(".")[1])
+
+        if wDiv8 > 1 or lDiv8 > 1:
+            print(Fore.RED + "\t\tHeight and Width should be divisible by 8")
+            time.sleep(2)
+            exit(0)
     except ValueError:
         width = 720
         height = 720
@@ -147,11 +164,11 @@ def latent_consistency_model():
         if "NSFW" in str(e):
             print("\t\tNSFW Content Detected")
             time.sleep(1)
-            exit(1)
+            exit(0)
         elif "CUDA" or "memory" in str(e):
             print(Fore.RED + "\t\tMODEL ERROR: CUDA OUT OF MEMORY")
             time.sleep(1)
-            exit(1)
+            exit(0)
         else:
             print(str(e))
     out_f = dir_path + f"\\Output\\{out_file_name}.png"
@@ -166,6 +183,14 @@ def anime_anything():
     try:
         width = int(input(Fore.BLUE + "\t\tEnter width: " + Fore.CYAN))
         height = int(input(Fore.BLUE + "\t\tEnter hieight: " + Fore.CYAN))
+
+        wDiv8 = len(str(width/8).split(".")[1])
+        lDiv8 = len(str(height/8).split(".")[1])
+
+        if wDiv8 > 1 or lDiv8 > 1:
+            print(Fore.RED + "\t\tHeight and Width should be divisible by 8")
+            time.sleep(2)
+            exit(0)
     except ValueError:
         width = 512
         height = 512
@@ -179,11 +204,11 @@ def anime_anything():
         if "NSFW" in str(e):
             print(Fore.RED + "\t\tNSFW Content Detected")
             time.sleep(1)
-            exit(1)
+            exit(0)
         elif "CUDA" or "memory" in str(e):
             print(Fore.RED + "\t\tMODEL ERROR: CUDA OUT OF MEMORY")
             time.sleep(1)
-            exit(1)
+            exit(0)
         else:
             print(str(e))
     print(Fore.MAGENTA + "\t\tDownloading...")
@@ -199,7 +224,7 @@ def loader():
 
                   Fore.CYAN + """\n\t\t[1]""" + Fore.GREEN + """ Image upscaler""" + Fore.YELLOW + """ (REAL ESRGAN)""" +
                   Fore.CYAN + """\n\t\t[2]""" + Fore.GREEN + """ Text to image""" + Fore.YELLOW + """ (SDXL)""" +
-                  Fore.CYAN + """\n\t\t[3]""" + Fore.GREEN + """ Text to image generation""" + Fore.YELLOW + """ (HIGH RES)(LATENT-CONSISTENCY-MODEL)""" +
+                  Fore.CYAN + """\n\t\t[3]""" + Fore.GREEN + """ Text to image generation""" + Fore.YELLOW + """ (HIGH RES CARTOON)(LATENT-CONSISTENCY-MODEL)""" +
                   Fore.CYAN + """\n\t\t[4]""" + Fore.GREEN + """ Anime""" + Fore.YELLOW + """ (ANYTHING V4.0) -> MAX RES: [1024x768 or 768x1024]""" +
                   Fore.CYAN + """\n\t\t[0]""" + Fore.GREEN + """ EXIT
             """)
