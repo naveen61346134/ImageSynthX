@@ -1,3 +1,9 @@
+@echo off
+echo Installing Python package requirements...
 pip3 install -r requirements.txt
 
+echo Clearing the screen...
+cls
+
+echo Running python ImageSynthX.py...
 python ImageSynthX.py
