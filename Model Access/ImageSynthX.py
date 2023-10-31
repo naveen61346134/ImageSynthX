@@ -84,23 +84,27 @@ def img_searcher():
                 else:
                     print(
                         Fore.CYAN + f"\t\t[{img+1}]" + Fore.GREEN + f" {images[img]}")
+
+    print(Style.BRIGHT + Fore.YELLOW + "\n\t\tEnter 'X' to go back to menu")
+    choice = input(Fore.BLUE + "\t\tEnter choice: " + Fore.CYAN)
     try:
-        choice = int(input(Fore.BLUE + "\n\t\tEnter choice: " + Fore.CYAN))
+        if choice == "X" or choice == "x":
+            loader()
+        elif int(choice) <= len(images) and int(choice) != 0:
+            file = f"{img_path}\\{images[choice-1]}"
+        elif int(choice) == 0:
+            os.system("cls")
+            print(Fore.RED + "\t\tInvalid Choice!")
+            time.sleep(1)
+            os.system("cls")
+            esrgan()
+        else:
+            os.system("cls")
+            print(Fore.RED + "\t\tInvalid Choice!")
+            time.sleep(1)
+            os.system("cls")
+            esrgan()
     except ValueError:
-        os.system("cls")
-        print(Fore.RED + "\t\tEnter a Valid Integer!")
-        time.sleep(1)
-        os.system("cls")
-        esrgan()
-    if choice <= len(images) and choice != 0:
-        file = f"{img_path}\\{images[choice-1]}"
-    elif choice == 0:
-        os.system("cls")
-        print(Fore.RED + "\t\tInvalid Choice!")
-        time.sleep(1)
-        os.system("cls")
-        esrgan()
-    else:
         os.system("cls")
         print(Fore.RED + "\t\tInvalid Choice!")
         time.sleep(1)
@@ -165,7 +169,10 @@ def sdxl():
                                                     ╚══════╝╚═════╝ ╚═╝  ╚═╝╚══════╝
     \n"""
     print(banner)
+    print(Style.BRIGHT + Fore.YELLOW + "\t\tEnter 'X' to go back to menu")
     prompt = input(Fore.BLUE + "\t\tEnter prompt for image: " + Fore.CYAN)
+    if prompt == "X" or prompt == "x":
+        loader()
     nPrompt = input(
         Fore.BLUE + "\t\tEnter the things to be avoided in the image: " + Fore.CYAN)
     if len(nPrompt) <= 0:
@@ -226,7 +233,10 @@ def latent_consistency_model():
                                                     ╚══════╝ ╚═════╝╚═╝     ╚═╝
     \n"""
     print(banner)
+    print(Style.BRIGHT + Fore.YELLOW + "\t\tEnter 'X' to go back to menu")
     prompt = input(Fore.BLUE + "\t\tEnter prompt for image: " + Fore.CYAN)
+    if prompt == "X" or prompt == "x":
+        loader()
     out_file_name = input(
         Fore.BLUE + "\t\tEnter output file name: " + Fore.CYAN)
     try:
@@ -282,7 +292,10 @@ def anime_anything():
                     ╚═╝  ╚═╝╚═╝  ╚═══╝   ╚═╝      ╚═╝   ╚═╝  ╚═╝╚═╝╚═╝  ╚═══╝ ╚═════╝       ╚═══╝       ╚═╝╚═╝ ╚═════╝ 
     \n"""
     print(banner)
+    print(Style.BRIGHT + Fore.YELLOW + "\t\tEnter 'X' to go back to menu")
     prompt = input(Fore.BLUE + "\t\tEnter prompt for image: " + Fore.CYAN)
+    if prompt == "X" or prompt == "x":
+        loader()
     out_file_name = input(
         Fore.BLUE + "\t\tEnter output file name: " + Fore.CYAN)
     try:
@@ -382,6 +395,7 @@ def loader():
             elif choice == "0":
                 print(Fore.RED + "\t\tExiting..")
                 time.sleep(1)
+                os.system("cls")
                 exit(0)
             else:
                 print(Fore.RED + "\t\tInvalid Choice\n")
@@ -390,6 +404,7 @@ def loader():
     except KeyboardInterrupt:
         print(Fore.RED + "\n\t\tKeyboard Interrupt Detected..")
         time.sleep(1)
+        os.system("cls")
         exit(0)
 
 
