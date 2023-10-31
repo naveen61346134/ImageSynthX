@@ -41,19 +41,18 @@ def download(url, out_f, out_file_name, png_check):
         print(Fore.RED + "\n\t\tERROR")
         time.sleep(1)
         os.system("cls")
-    time.sleep(2)
+    time.sleep(1.5)
 
 
 def file_path_and_check(png):
-    file_path = input(Fore.BLUE + "\t\tEnter complete file path: " + Fore.CYAN)
+    file_path = img_searcher()
     out_file_name = input(
         Fore.BLUE + "\t\tEnter output file name: " + Fore.CYAN)
-    if os.path.exists(file_path):
-        pass
-    else:
+    if not os.path.exists(file_path):
         print(Fore.RED + "\t\tFile doesnt exist!")
         time.sleep(1)
         exit(0)
+
     if png == True:
         out_f = dir_path + f"\\Output\\{out_file_name}.png"
     else:
@@ -61,13 +60,73 @@ def file_path_and_check(png):
     return file_path, out_f, out_file_name
 
 
+def img_searcher():
+    print("\n\n")
+    banner = Style.BRIGHT + Fore.RED + """
+        ██╗███╗   ███╗ █████╗  ██████╗ ███████╗███████╗
+        ██║████╗ ████║██╔══██╗██╔════╝ ██╔════╝██╔════╝
+        ██║██╔████╔██║███████║██║  ███╗█████╗  ███████╗
+        ██║██║╚██╔╝██║██╔══██║██║   ██║██╔══╝  ╚════██║
+        ██║██║ ╚═╝ ██║██║  ██║╚██████╔╝███████╗███████║
+        ╚═╝╚═╝     ╚═╝╚═╝  ╚═╝ ╚═════╝ ╚══════╝╚══════╝
+    """
+    print(banner)
+    img_path = dir_path + "\\Output"
+    extensions = [".png", ".jpg", ".jpeg"]
+    images = os.listdir(img_path)
+
+    for img in range(len(images)):
+        for ext in extensions:
+            if images[img].endswith(ext):
+                if img < 9:
+                    print(
+                        Fore.CYAN + f"\t\t[0{img+1}]" + Fore.GREEN + f" {images[img]}")
+                else:
+                    print(
+                        Fore.CYAN + f"\t\t[{img+1}]" + Fore.GREEN + f" {images[img]}")
+    try:
+        choice = int(input(Fore.BLUE + "\n\t\tEnter choice: " + Fore.CYAN))
+    except ValueError:
+        os.system("cls")
+        print(Fore.RED + "\t\tEnter a Valid Integer!")
+        time.sleep(1)
+        os.system("cls")
+        esrgan()
+    if choice <= len(images) and choice != 0:
+        file = f"{img_path}\\{images[choice-1]}"
+    elif choice == 0:
+        os.system("cls")
+        print(Fore.RED + "\t\tInvalid Choice!")
+        time.sleep(1)
+        os.system("cls")
+        esrgan()
+    else:
+        os.system("cls")
+        print(Fore.RED + "\t\tInvalid Choice!")
+        time.sleep(1)
+        os.system("cls")
+        esrgan()
+
+    return file
+
+
 def esrgan():
+    banner = Style.BRIGHT + Fore.MAGENTA + """\n
+                        ██████╗ ███████╗ █████╗ ██╗         ███████╗███████╗██████╗  ██████╗  █████╗ ███╗   ██╗
+                        ██╔══██╗██╔════╝██╔══██╗██║         ██╔════╝██╔════╝██╔══██╗██╔════╝ ██╔══██╗████╗  ██║
+                        ██████╔╝█████╗  ███████║██║         █████╗  ███████╗██████╔╝██║  ███╗███████║██╔██╗ ██║
+                        ██╔══██╗██╔══╝  ██╔══██║██║         ██╔══╝  ╚════██║██╔══██╗██║   ██║██╔══██║██║╚██╗██║
+                        ██║  ██║███████╗██║  ██║███████╗    ███████╗███████║██║  ██║╚██████╔╝██║  ██║██║ ╚████║
+                        ╚═╝  ╚═╝╚══════╝╚═╝  ╚═╝╚══════╝    ╚══════╝╚══════╝╚═╝  ╚═╝ ╚═════╝ ╚═╝  ╚═╝╚═╝  ╚═══╝
+    \n
+    """
+    print(banner)
     file_path, out_f, out_file_name = file_path_and_check(True)
     try:
         upscale = int(
             input(Fore.BLUE + "\t\tEnter upscale value: " + Fore.CYAN))
     except ValueError:
-        upscale = 4
+        upscale = 2
 
     print(Fore.BLUE + "\t\tProcessing...")
     try:
@@ -77,26 +136,35 @@ def esrgan():
         )
     except Exception as e:
         if "NSFW" in str(e):
-            print(Fore.RED + "\t\tNSFW Content Detected")
+            print(Fore.RED + "\t\tNSFW Content Detected!")
             time.sleep(1)
-            exit(0)
+            loader()
         elif "getaddrinfo" in str(e):
-            print(Fore.RED + "\t\tNetwork Error")
+            print(Fore.RED + "\t\tNetwork Error!")
             time.sleep(1)
             exit(0)
         elif "CUDA" or "memory" in str(e):
-            print(Fore.RED + "\t\tMODEL ERROR: CUDA OUT OF MEMORY")
+            print(Fore.RED + "\t\tMODEL ERROR: CUDA OUT OF MEMORY!")
             time.sleep(1)
-            exit(0)
+            loader()
         else:
             print(str(e))
             time.sleep(2)
-            exit(0)
+            loader()
     print(Fore.MAGENTA + "\t\tDownloading...")
     download(str(output), out_f, out_file_name, True)
 
 
 def sdxl():
+    banner = Style.BRIGHT + Fore.MAGENTA + """\n
+                                                    ███████╗██████╗ ██╗  ██╗██╗     
+                                                    ██╔════╝██╔══██╗╚██╗██╔╝██║     
+                                                    ███████╗██║  ██║ ╚███╔╝ ██║     
+                                                    ╚════██║██║  ██║ ██╔██╗ ██║     
+                                                    ███████║██████╔╝██╔╝ ██╗███████╗
+                                                    ╚══════╝╚═════╝ ╚═╝  ╚═╝╚══════╝
+    \n"""
+    print(banner)
     prompt = input(Fore.BLUE + "\t\tEnter prompt for image: " + Fore.CYAN)
     nPrompt = input(
         Fore.BLUE + "\t\tEnter the things to be avoided in the image: " + Fore.CYAN)
@@ -106,15 +174,17 @@ def sdxl():
         Fore.BLUE + "\t\tEnter output file name: " + Fore.CYAN)
     try:
         width = int(input(Fore.BLUE + "\t\tEnter width: " + Fore.CYAN))
-        height = int(input(Fore.BLUE + "\t\tEnter hieight: " + Fore.CYAN))
-
         wDiv8 = len(str(width/8).split(".")[1])
-        lDiv8 = len(str(height/8).split(".")[1])
-
-        if wDiv8 > 1 or lDiv8 > 1:
-            print(Fore.RED + "\t\tHeight and Width should be divisible by 8")
+        if wDiv8 > 1:
+            print(Fore.RED + "\t\tWidth should be divisible by 8")
             time.sleep(2)
-            exit(0)
+            loader()
+        height = int(input(Fore.BLUE + "\t\tEnter height: " + Fore.CYAN))
+        lDiv8 = len(str(height/8).split(".")[1])
+        if lDiv8 > 1:
+            print(Fore.RED + "\t\tHeight should be divisible by 8")
+            time.sleep(2)
+            loader()
     except ValueError:
         width = 720
         height = 720
@@ -129,7 +199,7 @@ def sdxl():
         if "NSFW" in str(e):
             print(Fore.RED + "NSFW Content Detected")
             time.sleep(1)
-            exit(0)
+            loader()
         elif "getaddrinfo" in str(e):
             print(Fore.RED + "\t\tNetwork Error")
             time.sleep(1)
@@ -137,7 +207,7 @@ def sdxl():
         elif "CUDA" or "memory" in str(e):
             print(Fore.RED + "\t\tMODEL ERROR: CUDA OUT OF MEMORY")
             time.sleep(1)
-            exit(0)
+            loader()
         else:
             print(str(e))
 
@@ -147,20 +217,31 @@ def sdxl():
 
 
 def latent_consistency_model():
+    banner = Style.BRIGHT + Fore.MAGENTA + """\n
+                                                    ██╗      ██████╗███╗   ███╗
+                                                    ██║     ██╔════╝████╗ ████║
+                                                    ██║     ██║     ██╔████╔██║
+                                                    ██║     ██║     ██║╚██╔╝██║
+                                                    ███████╗╚██████╗██║ ╚═╝ ██║
+                                                    ╚══════╝ ╚═════╝╚═╝     ╚═╝
+    \n"""
+    print(banner)
     prompt = input(Fore.BLUE + "\t\tEnter prompt for image: " + Fore.CYAN)
     out_file_name = input(
         Fore.BLUE + "\t\tEnter output file name: " + Fore.CYAN)
     try:
         width = int(input(Fore.BLUE + "\t\tEnter width: " + Fore.CYAN))
-        height = int(input(Fore.BLUE + "\t\tEnter hieight: " + Fore.CYAN))
-
         wDiv8 = len(str(width/8).split(".")[1])
-        lDiv8 = len(str(height/8).split(".")[1])
-
-        if wDiv8 > 1 or lDiv8 > 1:
-            print(Fore.RED + "\t\tHeight and Width should be divisible by 8")
+        if wDiv8 > 1:
+            print(Fore.RED + "\t\tWidth should be divisible by 8")
             time.sleep(2)
-            exit(0)
+            loader()
+        height = int(input(Fore.BLUE + "\t\tEnter hieight: " + Fore.CYAN))
+        lDiv8 = len(str(height/8).split(".")[1])
+        if lDiv8 > 1:
+            print(Fore.RED + "\t\tHeight should be divisible by 8")
+            time.sleep(2)
+            loader()
     except ValueError:
         width = 720
         height = 720
@@ -175,7 +256,7 @@ def latent_consistency_model():
         if "NSFW" in str(e):
             print("\t\tNSFW Content Detected")
             time.sleep(1)
-            exit(0)
+            loader()
         elif "getaddrinfo" in str(e):
             print(Fore.RED + "\t\tNetwork Error")
             time.sleep(1)
@@ -183,7 +264,7 @@ def latent_consistency_model():
         elif "CUDA" or "memory" in str(e):
             print(Fore.RED + "\t\tMODEL ERROR: CUDA OUT OF MEMORY")
             time.sleep(1)
-            exit(0)
+            loader()
         else:
             print(str(e))
     out_f = dir_path + f"\\Output\\{out_file_name}.png"
@@ -192,20 +273,31 @@ def latent_consistency_model():
 
 
 def anime_anything():
+    banner = Style.BRIGHT + Fore.MAGENTA + """\n
+                    █████╗ ███╗   ██╗██╗   ██╗████████╗██╗  ██╗██╗███╗   ██╗ ██████╗     ██╗   ██╗██╗  ██╗    ██████╗ 
+                    ██╔══██╗████╗  ██║╚██╗ ██╔╝╚══██╔══╝██║  ██║██║████╗  ██║██╔════╝     ██║   ██║██║  ██║   ██╔═████╗
+                    ███████║██╔██╗ ██║ ╚████╔╝    ██║   ███████║██║██╔██╗ ██║██║  ███╗    ██║   ██║███████║   ██║██╔██║
+                    ██╔══██║██║╚██╗██║  ╚██╔╝     ██║   ██╔══██║██║██║╚██╗██║██║   ██║    ╚██╗ ██╔╝╚════██║   ████╔╝██║
+                    ██║  ██║██║ ╚████║   ██║      ██║   ██║  ██║██║██║ ╚████║╚██████╔╝     ╚████╔╝      ██║██╗╚██████╔╝
+                    ╚═╝  ╚═╝╚═╝  ╚═══╝   ╚═╝      ╚═╝   ╚═╝  ╚═╝╚═╝╚═╝  ╚═══╝ ╚═════╝       ╚═══╝       ╚═╝╚═╝ ╚═════╝ 
+    \n"""
+    print(banner)
     prompt = input(Fore.BLUE + "\t\tEnter prompt for image: " + Fore.CYAN)
     out_file_name = input(
         Fore.BLUE + "\t\tEnter output file name: " + Fore.CYAN)
     try:
         width = int(input(Fore.BLUE + "\t\tEnter width: " + Fore.CYAN))
-        height = int(input(Fore.BLUE + "\t\tEnter hieight: " + Fore.CYAN))
-
         wDiv8 = len(str(width/8).split(".")[1])
-        lDiv8 = len(str(height/8).split(".")[1])
-
-        if wDiv8 > 1 or lDiv8 > 1:
-            print(Fore.RED + "\t\tHeight and Width should be divisible by 8")
+        if wDiv8 > 1:
+            print(Fore.RED + "\t\tWidth should be divisible by 8")
             time.sleep(2)
-            exit(0)
+            loader()
+        height = int(input(Fore.BLUE + "\t\tEnter hieight: " + Fore.CYAN))
+        lDiv8 = len(str(height/8).split(".")[1])
+        if lDiv8 > 1:
+            print(Fore.RED + "\t\tHeight should be divisible by 8")
+            time.sleep(2)
+            loader()
     except ValueError:
         width = 512
         height = 512
@@ -219,7 +311,7 @@ def anime_anything():
         if "NSFW" in str(e):
             print(Fore.RED + "\t\tNSFW Content Detected")
             time.sleep(1)
-            exit(0)
+            loader()
         elif "getaddrinfo" in str(e):
             print(Fore.RED + "\t\tNetwork Error")
             time.sleep(1)
@@ -227,7 +319,7 @@ def anime_anything():
         elif "CUDA" or "memory" in str(e):
             print(Fore.RED + "\t\tMODEL ERROR: CUDA OUT OF MEMORY")
             time.sleep(1)
-            exit(0)
+            loader()
         else:
             print(str(e))
     print(Fore.MAGENTA + "\t\tDownloading...")
@@ -238,18 +330,31 @@ def anime_anything():
 def PCredits():
     os.system("cls")
     print(Fore.RED + """
-                        Image-SynthX\n""" + Fore.BLUE + """
-                Programming:""" + Fore.CYAN + """ Naveen William""")
+                         ██████╗██████╗ ███████╗██████╗ ██╗████████╗███████╗
+                        ██╔════╝██╔══██╗██╔════╝██╔══██╗██║╚══██╔══╝██╔════╝
+                        ██║     ██████╔╝█████╗  ██║  ██║██║   ██║   ███████╗
+                        ██║     ██╔══██╗██╔══╝  ██║  ██║██║   ██║   ╚════██║
+                        ╚██████╗██║  ██║███████╗██████╔╝██║   ██║   ███████║
+                        ╚═════╝╚═╝  ╚═╝╚══════╝╚═════╝ ╚═╝   ╚═╝   ╚══════╝
+                                                    
+                                         Image-SynthX\n""" + Fore.BLUE + """
+                                  Programming:""" + Fore.CYAN + """ Naveen William""")
     time.sleep(2)
-    os.system("cls")
     loader()
 
 
 def loader():
     try:
+        os.system("cls")
         while True:
             print(Style.BRIGHT + Fore.RED + """\n\t\t
-                                        Image-SynthX \n""" +
+                        ██╗███╗   ███╗ █████╗  ██████╗ ███████╗    ███████╗██╗   ██╗███╗   ██╗████████╗██╗  ██╗██╗  ██╗
+                        ██║████╗ ████║██╔══██╗██╔════╝ ██╔════╝    ██╔════╝╚██╗ ██╔╝████╗  ██║╚══██╔══╝██║  ██║╚██╗██╔╝
+                        ██║██╔████╔██║███████║██║  ███╗█████╗█████╗███████╗ ╚████╔╝ ██╔██╗ ██║   ██║   ███████║ ╚███╔╝ 
+                        ██║██║╚██╔╝██║██╔══██║██║   ██║██╔══╝╚════╝╚════██║  ╚██╔╝  ██║╚██╗██║   ██║   ██╔══██║ ██╔██╗ 
+                        ██║██║ ╚═╝ ██║██║  ██║╚██████╔╝███████╗    ███████║   ██║   ██║ ╚████║   ██║   ██║  ██║██╔╝ ██╗
+                        ╚═╝╚═╝     ╚═╝╚═╝  ╚═╝ ╚═════╝ ╚══════╝    ╚══════╝   ╚═╝   ╚═╝  ╚═══╝   ╚═╝   ╚═╝  ╚═╝╚═╝  ╚═╝
+                                                                                                \n""" +
 
                   Fore.CYAN + """\n\t\t[1]""" + Fore.GREEN + """ Image upscaler""" + Fore.YELLOW + """ (REAL ESRGAN)""" +
                   Fore.CYAN + """\n\t\t[2]""" + Fore.GREEN + """ Text to image""" + Fore.YELLOW + """ (SDXL)""" +
@@ -261,12 +366,16 @@ def loader():
             choice = input(Fore.BLUE + Style.BRIGHT +
                            "\n\t\tEnter choice: " + Fore.CYAN)
             if choice == "1":
+                os.system("cls")
                 esrgan()
             elif choice == "2":
+                os.system("cls")
                 sdxl()
             elif choice == "3":
+                os.system("cls")
                 latent_consistency_model()
             elif choice == "4":
+                os.system("cls")
                 anime_anything()
             elif choice == "C":
                 PCredits()
