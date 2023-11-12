@@ -1,8 +1,30 @@
 import os
-import wget
 import time
-import replicate
-from colorama import Fore, Style
+try:
+    from colorama import Fore, Style
+except ImportError:
+    print("colorama package not installed\nRun the installer")
+    time.sleep(2)
+    exit(0)
+try:
+    import webbrowser
+except ImportError:
+    print("Webbrowser package not installed\nRun the installer")
+    time.sleep(2)
+    exit(0)
+try:
+    import wget
+    import replicate
+except ImportError:
+    print(Fore.RED + "\t\t Error Loading Packages\n\t\tRun the installer")
+    time.sleep(1)
+    exit(0)
+try:
+    from banners import main_banner, credits_banner, anything_banner, lcm_banner, sdxl_banner, esrgan_banner, images_banner
+except ImportError:
+    print(Style.BRIGHT + Fore.RED + "\t\tError in banners file")
+    time.sleep(2)
+    exit(0)
 
 dir_path = os.getcwd()
 
@@ -62,15 +84,7 @@ def file_path_and_check(png):
 
 def img_searcher():
     print("\n\n")
-    banner = Style.BRIGHT + Fore.RED + """
-        ██╗███╗   ███╗ █████╗  ██████╗ ███████╗███████╗
-        ██║████╗ ████║██╔══██╗██╔════╝ ██╔════╝██╔════╝
-        ██║██╔████╔██║███████║██║  ███╗█████╗  ███████╗
-        ██║██║╚██╔╝██║██╔══██║██║   ██║██╔══╝  ╚════██║
-        ██║██║ ╚═╝ ██║██║  ██║╚██████╔╝███████╗███████║
-        ╚═╝╚═╝     ╚═╝╚═╝  ╚═╝ ╚═════╝ ╚══════╝╚══════╝
-    """
-    print(banner)
+    print(images_banner)
     img_path = dir_path + "\\Output"
     extensions = [".png", ".jpg", ".jpeg"]
     images = os.listdir(img_path)
@@ -91,7 +105,7 @@ def img_searcher():
         if choice == "X" or choice == "x":
             loader()
         elif int(choice) <= len(images) and int(choice) != 0:
-            file = f"{img_path}\\{images[choice-1]}"
+            file = f"{img_path}\\{images[int(choice)-1]}"
         elif int(choice) == 0:
             os.system("cls")
             print(Fore.RED + "\t\tInvalid Choice!")
@@ -115,16 +129,7 @@ def img_searcher():
 
 
 def esrgan():
-    banner = Style.BRIGHT + Fore.MAGENTA + """\n
-                        ██████╗ ███████╗ █████╗ ██╗         ███████╗███████╗██████╗  ██████╗  █████╗ ███╗   ██╗
-                        ██╔══██╗██╔════╝██╔══██╗██║         ██╔════╝██╔════╝██╔══██╗██╔════╝ ██╔══██╗████╗  ██║
-                        ██████╔╝█████╗  ███████║██║         █████╗  ███████╗██████╔╝██║  ███╗███████║██╔██╗ ██║
-                        ██╔══██╗██╔══╝  ██╔══██║██║         ██╔══╝  ╚════██║██╔══██╗██║   ██║██╔══██║██║╚██╗██║
-                        ██║  ██║███████╗██║  ██║███████╗    ███████╗███████║██║  ██║╚██████╔╝██║  ██║██║ ╚████║
-                        ╚═╝  ╚═╝╚══════╝╚═╝  ╚═╝╚══════╝    ╚══════╝╚══════╝╚═╝  ╚═╝ ╚═════╝ ╚═╝  ╚═╝╚═╝  ╚═══╝
-    \n
-    """
-    print(banner)
+    print(esrgan_banner)
     file_path, out_f, out_file_name = file_path_and_check(True)
     try:
         upscale = int(
@@ -160,15 +165,7 @@ def esrgan():
 
 
 def sdxl():
-    banner = Style.BRIGHT + Fore.MAGENTA + """\n
-                                                    ███████╗██████╗ ██╗  ██╗██╗     
-                                                    ██╔════╝██╔══██╗╚██╗██╔╝██║     
-                                                    ███████╗██║  ██║ ╚███╔╝ ██║     
-                                                    ╚════██║██║  ██║ ██╔██╗ ██║     
-                                                    ███████║██████╔╝██╔╝ ██╗███████╗
-                                                    ╚══════╝╚═════╝ ╚═╝  ╚═╝╚══════╝
-    \n"""
-    print(banner)
+    print(sdxl_banner)
     print(Style.BRIGHT + Fore.YELLOW + "\t\tEnter 'X' to go back to menu")
     prompt = input(Fore.BLUE + "\t\tEnter prompt for image: " + Fore.CYAN)
     if prompt == "X" or prompt == "x":
@@ -224,15 +221,7 @@ def sdxl():
 
 
 def latent_consistency_model():
-    banner = Style.BRIGHT + Fore.MAGENTA + """\n
-                                                    ██╗      ██████╗███╗   ███╗
-                                                    ██║     ██╔════╝████╗ ████║
-                                                    ██║     ██║     ██╔████╔██║
-                                                    ██║     ██║     ██║╚██╔╝██║
-                                                    ███████╗╚██████╗██║ ╚═╝ ██║
-                                                    ╚══════╝ ╚═════╝╚═╝     ╚═╝
-    \n"""
-    print(banner)
+    print(lcm_banner)
     print(Style.BRIGHT + Fore.YELLOW + "\t\tEnter 'X' to go back to menu")
     prompt = input(Fore.BLUE + "\t\tEnter prompt for image: " + Fore.CYAN)
     if prompt == "X" or prompt == "x":
@@ -283,15 +272,7 @@ def latent_consistency_model():
 
 
 def anime_anything():
-    banner = Style.BRIGHT + Fore.MAGENTA + """\n
-                    █████╗ ███╗   ██╗██╗   ██╗████████╗██╗  ██╗██╗███╗   ██╗ ██████╗     ██╗   ██╗██╗  ██╗    ██████╗ 
-                    ██╔══██╗████╗  ██║╚██╗ ██╔╝╚══██╔══╝██║  ██║██║████╗  ██║██╔════╝     ██║   ██║██║  ██║   ██╔═████╗
-                    ███████║██╔██╗ ██║ ╚████╔╝    ██║   ███████║██║██╔██╗ ██║██║  ███╗    ██║   ██║███████║   ██║██╔██║
-                    ██╔══██║██║╚██╗██║  ╚██╔╝     ██║   ██╔══██║██║██║╚██╗██║██║   ██║    ╚██╗ ██╔╝╚════██║   ████╔╝██║
-                    ██║  ██║██║ ╚████║   ██║      ██║   ██║  ██║██║██║ ╚████║╚██████╔╝     ╚████╔╝      ██║██╗╚██████╔╝
-                    ╚═╝  ╚═╝╚═╝  ╚═══╝   ╚═╝      ╚═╝   ╚═╝  ╚═╝╚═╝╚═╝  ╚═══╝ ╚═════╝       ╚═══╝       ╚═╝╚═╝ ╚═════╝ 
-    \n"""
-    print(banner)
+    print(anything_banner)
     print(Style.BRIGHT + Fore.YELLOW + "\t\tEnter 'X' to go back to menu")
     prompt = input(Fore.BLUE + "\t\tEnter prompt for image: " + Fore.CYAN)
     if prompt == "X" or prompt == "x":
@@ -342,52 +323,43 @@ def anime_anything():
 
 def PCredits():
     os.system("cls")
-    print(Fore.RED + """
-                         ██████╗██████╗ ███████╗██████╗ ██╗████████╗███████╗
-                        ██╔════╝██╔══██╗██╔════╝██╔══██╗██║╚══██╔══╝██╔════╝
-                        ██║     ██████╔╝█████╗  ██║  ██║██║   ██║   ███████╗
-                        ██║     ██╔══██╗██╔══╝  ██║  ██║██║   ██║   ╚════██║
-                        ╚██████╗██║  ██║███████╗██████╔╝██║   ██║   ███████║
-                        ╚═════╝╚═╝  ╚═╝╚══════╝╚═════╝ ╚═╝   ╚═╝   ╚══════╝
-                                                    
-                                         Image-SynthX\n""" + Fore.BLUE + """
-                                  Programming:""" + Fore.CYAN + """ Naveen William""")
+    print(credits_banner)
     time.sleep(2)
     loader()
+
+
+def web_ui():
+    file = "web-ui.py"
+    if not os.path.exists(file):
+        print(Style.BRIGHT + Fore.RED + "WEB UI File Not Found")
+        time.sleep(2)
+        exit(0)
+    else:
+        os.system("start web-ui.py")
+        time.sleep(0.5)
+        webbrowser.open("http://127.0.0.1:5000")
 
 
 def loader():
     try:
         os.system("cls")
         while True:
-            print(Style.BRIGHT + Fore.RED + """\n\t\t
-                        ██╗███╗   ███╗ █████╗  ██████╗ ███████╗    ███████╗██╗   ██╗███╗   ██╗████████╗██╗  ██╗██╗  ██╗
-                        ██║████╗ ████║██╔══██╗██╔════╝ ██╔════╝    ██╔════╝╚██╗ ██╔╝████╗  ██║╚══██╔══╝██║  ██║╚██╗██╔╝
-                        ██║██╔████╔██║███████║██║  ███╗█████╗█████╗███████╗ ╚████╔╝ ██╔██╗ ██║   ██║   ███████║ ╚███╔╝ 
-                        ██║██║╚██╔╝██║██╔══██║██║   ██║██╔══╝╚════╝╚════██║  ╚██╔╝  ██║╚██╗██║   ██║   ██╔══██║ ██╔██╗ 
-                        ██║██║ ╚═╝ ██║██║  ██║╚██████╔╝███████╗    ███████║   ██║   ██║ ╚████║   ██║   ██║  ██║██╔╝ ██╗
-                        ╚═╝╚═╝     ╚═╝╚═╝  ╚═╝ ╚═════╝ ╚══════╝    ╚══════╝   ╚═╝   ╚═╝  ╚═══╝   ╚═╝   ╚═╝  ╚═╝╚═╝  ╚═╝
-                                                                                                \n""" +
-
-                  Fore.CYAN + """\n\t\t[1]""" + Fore.GREEN + """ Image upscaler""" + Fore.YELLOW + """ (REAL ESRGAN)""" +
-                  Fore.CYAN + """\n\t\t[2]""" + Fore.GREEN + """ Text to image""" + Fore.YELLOW + """ (SDXL)""" +
-                  Fore.CYAN + """\n\t\t[3]""" + Fore.GREEN + """ Text to image generation""" + Fore.YELLOW + """ (HIGH RES CARTOON)(LATENT-CONSISTENCY-MODEL)""" +
-                  Fore.CYAN + """\n\t\t[4]""" + Fore.GREEN + """ Anime""" + Fore.YELLOW + """ (ANYTHING V4.0) -> MAX RES: [1024x768 or 768x1024]""" +
-                  Fore.CYAN + """\n\t\t[C]""" + Fore.GREEN + """ Credits""" +
-                  Fore.CYAN + """\n\t\t[0]""" + Fore.GREEN + """ EXIT
-            """)
+            print(main_banner)
             choice = input(Fore.BLUE + Style.BRIGHT +
                            "\n\t\tEnter choice: " + Fore.CYAN)
             if choice == "1":
                 os.system("cls")
-                esrgan()
+                web_ui()
             elif choice == "2":
                 os.system("cls")
-                sdxl()
+                esrgan()
             elif choice == "3":
                 os.system("cls")
-                latent_consistency_model()
+                sdxl()
             elif choice == "4":
+                os.system("cls")
+                latent_consistency_model()
+            elif choice == "5":
                 os.system("cls")
                 anime_anything()
             elif choice == "C":
