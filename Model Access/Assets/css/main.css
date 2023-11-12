@@ -1,0 +1,162 @@
+body {
+    font-family: 'Poppins', sans-serif;
+    text-align: center;
+    margin: 20px 21px 10px 21px;
+    background: linear-gradient(#116466, #2C3531);
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+
+.main-head {
+    cursor: default;
+    text-decoration: none;
+    font-weight: bolder;
+    font-style: normal;
+    font-weight: bold;
+    margin-bottom: 0px;
+    color: #7DF9FF;
+}
+
+.gallery-head {
+    font-weight: bolder;
+    font-style: normal;
+    font-weight: bold;
+    margin-bottom: 0px;
+    margin-left: 10px;
+    color: #5680E9;
+}
+
+.main-udn {
+    margin: 0px auto 0px auto;
+    height: 2px;
+    width: 300px;
+    background: #45A29E;
+}
+
+.gallery-udn {
+    margin: none;
+    height: 2px;
+    width: 250px;
+    background: #45A29E;
+}
+
+.items-wrapper {
+    border: 1px solid #D9B08C;
+    padding: 8px 10px;
+    background: #FFCB9A;
+    transition: transform .1s;
+}
+
+.items-wrapper:hover {
+    opacity: 95%;
+    border: 1px solid #116466;
+    cursor: pointer;
+    transform: scale(1.1);
+}
+
+.item-head {
+    text-decoration: none;
+    color: #2C3531;
+}
+
+.item-head:hover {
+    color: #8A9AFF;
+    font-weight: normal;
+}
+
+.items-parser {
+    margin-top: 10px;
+    margin-bottom: 40px;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+}
+
+.gallery-block {
+    text-align: start;
+}
+
+.image-block {
+    margin-top: 30px;
+    display: flex;
+}
+
+.image {
+    margin: 0px 5px;
+    height: 250px;
+    width: 250px;
+    background: #C5C6C7;
+}
+
+.image-1 {
+    background-image: url("/Assets/Images/cyber4k.png");
+    background-size: cover;
+    transition: transform .3s;
+}
+
+.image-1:hover {
+    transform: scale(1.2);
+    border-radius: 5px;
+}
+
+.image-2 {
+    background-image: url("/Assets/Images/cyberpunk-albert.png");
+    background-size: cover;
+    transition: transform .3s;
+}
+
+.image-2:hover {
+    transform: scale(1.2);
+    border-radius: 5px;
+}
+
+.image-3 {
+    background-image: url("/Assets/Images/cuber-punk-city-upscale.png");
+    background-size: cover;
+    transition: transform .3s;
+}
+
+.image-3:hover {
+    transform: scale(1.2);
+    border-radius: 5px;
+}
+
+.image-4 {
+    background-image: url("/Assets/Images/astro-upscale.png");
+    background-size: cover;
+    transition: transform .3s;
+}
+
+.image-4:hover {
+    transform: scale(1.2);
+    border-radius: 5px;
+}
+
+.image-5 {
+    background-image: url("/Assets/Images/catout.png");
+    background-size: cover;
+    transition: transform .3s;
+}
+
+.image-5:hover {
+    transform: scale(1.2);
+    border-radius: 5px;
+}
+
+.about-contact {
+    margin: 30px auto 5px auto;
+}
+
+.contact-info {
+    font-family: "Orbitron", sans-serif;
+    margin-bottom: 5px;
+    font-style: italic;
+    opacity: 70%;
+}
+
+.gallery-brief {
+    opacity: 70%;
+    font-weight: lighter;
+    color: aqua;
+    margin: 5px auto 0px auto;
+}
