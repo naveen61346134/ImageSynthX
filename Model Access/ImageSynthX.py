@@ -1,15 +1,10 @@
 import os
 import time
+import webbrowser
 try:
     from colorama import Fore, Style
 except ImportError:
     print("colorama package not installed\nRun the installer")
-    time.sleep(2)
-    exit(0)
-try:
-    import webbrowser
-except ImportError:
-    print("Webbrowser package not installed\nRun the installer")
     time.sleep(2)
     exit(0)
 try:
