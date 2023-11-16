@@ -1,3 +1,6 @@
-wget==3.2
-replicate==0.15.4
-colorama==0.4.6
+wget
+replicate
+colorama
+Flask
+Flask-WTF
+WTForms
