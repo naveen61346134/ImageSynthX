@@ -1,0 +1,56 @@
+{% extends "structure.html" %}
+
+{% block head %}
+<title>Stable Diffusion XL</title>
+<link rel="icon" type="image/svg+xml" href="/Assets/svg/robot.svg">
+<link rel="stylesheet" href="/Assets/css/subs.css">
+{% endblock head %}
+
+{% block body %}
+<div class="subs-main-head-block">
+    <h2 class="subs-head">Stable Diffusion XL</h2>
+</div>
+<div class="inp-out">
+    <div class="form-block">
+        <h2 class="inp">Input</h2>
+        <form action="/sdxl" method="POST">
+            <fieldset>
+                <div class="form-fields">
+                    <div class="prompt-block marginizer">
+                        {{form.prompt.label}}
+                        {{form.prompt(placeholder="A realistic portrait of a horse")}}
+                    </div>
+
+                    <div class="nPrompt-block marginizer">
+                        {{form.nPrompt.label}}
+                        {{form.nPrompt(placeholder="Disfigured objects and faces")}}
+                    </div>
+
+                    <div class="filename-block marginizer">
+                        {{form.filename.label}}
+                        {{form.filename(placeholder="horse")}}
+                    </div>
+
+                    <div class="height-block marginizer">
+                        {{form.height.label}}
+                        {{form.height(placeholder="720")}}
+                    </div>
+
+                    <div class="width-block marginizer">
+                        {{form.width.label}}
+                        {{form.width(placeholder="720")}}
+                    </div>
+
+                    <button class="btn1" type="submit"
+                        onclick="checkProcessedStatus()">Submit</button>
+                </div>
+            </fieldset>
+        </form>
+    </div>
+
+    <div class="output">
+        <h2 class="inp">Output</h2>
+        <div id="output-div" class="loading"></div>
+    </div>
+</div>
+{% endblock body %}

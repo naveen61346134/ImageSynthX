@@ -1,0 +1,45 @@
+{% extends "structure.html" %}
+
+{% block head %}
+<title>Image-SynthX</title>
+<link rel="icon" type="image/svg+xml" href="/Assets/svg/python.svg">
+<link rel="stylesheet" href="/Assets/css/main.css">
+{% endblock head %}
+
+{% block body %}
+<div class="gallery-block">
+    <div class="gallery-head-block">
+        <h2 class="gallery-head">Generated Images</h2>
+        <div class="gallery-udn"></div>
+    </div>
+    <div class="gallery-brief-block">
+        <p class="gallery-brief">Here are some of the images generated using
+            this program.</p>
+    </div>
+    <div class="image-block">
+        <div class="image-1 image"></div>
+        <div class="image-2 image"></div>
+        <div class="image-3 image"></div>
+        <div class="image-4 image"></div>
+        <div class="image-5 image"></div>
+    </div>
+</div>
+
+<div class="about-contact">
+    <p class="contact-info">Contact me on:</p>
+    <div class="svgs">
+        <a href="https://github.com/naveen61346134" target="_blank"><img
+                src="/Assets/svg/github.svg" alt="github" height="30px"
+                width="30px"></a>
+
+        <a href="https://www.instagram.com/__naveen__.pyw" target="_blank"><img
+                src="/Assets/svg/instagram.svg" alt="instagram" height="30px"
+                width="30px"></a>
+
+        <a href="https://stackoverflow.com/users/18364881/naveen-william"
+            target="_blank"><img
+                src="/Assets/svg/stack-overflow.svg" alt="stack-overflow"
+                height="30px" width="30px"></a>
+    </div>
+</div>
+{% endblock body %}

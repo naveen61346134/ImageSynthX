@@ -1,0 +1,51 @@
+{% extends "structure.html" %}
+
+{% block head %}
+<title>Latent Consistency Model</title>
+<link rel="icon" type="image/svg+xml" href="/Assets/svg/robot.svg">
+<link rel="stylesheet" href="/Assets/css/subs.css">
+{% endblock head %}
+
+{% block body %}
+<div class="subs-main-head-block">
+    <h2 class="subs-head">Latent Consistency Model</h2>
+</div>
+<div class="inp-out">
+    <div class="form-block">
+        <h2 class="inp">Input</h2>
+        <form action method="POST">
+            <fieldset>
+                <div class="form-fields">
+                    <div class="prompt-block marginizer">
+                        {{form.prompt.label(class="user-prompt")}}
+                        {{form.prompt(placeholder="A cartoonish portrait of a jungle")}}
+                    </div>
+
+                    <div class="filename-block marginizer">
+                        {{form.filename.label}}
+                        {{form.filename(placeholder="jungle")}}
+                    </div>
+
+                    <div class="height-block marginizer">
+                        {{form.height.label}}
+                        {{form.height(placeholder="720")}}
+                    </div>
+
+                    <div class="width-block marginizer">
+                        {{form.width.label}}
+                        {{form.width(placeholder="720")}}
+                    </div>
+
+                    <button class="btn1" type="submit"
+                        onclick="checkProcessedStatus()">Submit</button>
+                </div>
+            </fieldset>
+        </form>
+    </div>
+
+    <div class="output">
+        <h2 class="inp">Output</h2>
+        <div id="output-div" class="loading"></div>
+    </div>
+</div>
+{% endblock body %}

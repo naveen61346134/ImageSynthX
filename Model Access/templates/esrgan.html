@@ -1,0 +1,51 @@
+{% extends "structure.html" %}
+
+{% block head %}
+<title>Real Esrgan</title>
+<link rel="icon" type="image/svg+xml" href="/Assets/svg/robot.svg">
+<link rel="stylesheet" href="/Assets/css/subs.css">
+{% endblock head %}
+
+{% block body %}
+<div class="subs-main-head-block">
+    <h2 class="subs-head">Real Esrgan</h2>
+</div>
+<div class="inp-out">
+    <div class="form-block">
+        <h2 class="inp">Input</h2>
+        <form action method="POST" , enctype="multipart/form-data">
+            <fieldset>
+                <div class="form-fields">
+                    <div class="image-choose-block marginizer">
+                        {{form.image_file.label}}
+                        {{form.image_file()}}
+                    </div>
+
+                    <div class="file-name-block marginizer">
+                        {{form.filename.label}}
+                        {{form.filename(size=10, placeholder="file1")}}
+                    </div>
+
+                    <div class="upscale-block marginizer">
+                        {{form.upscale.label}}
+                        {{form.upscale(placeholder="4")}}
+                    </div>
+
+                    <div class="face-enchance-block marginizer">
+                        <input type="checkbox" id="enchance" name="enhance">
+                        <label class="enhance" for="enhance" name="enhance">Face
+                            Enhance</label>
+                    </div>
+
+                    <button class="btn1" type="submit">Submit</button>
+                </div>
+            </fieldset>
+        </form>
+    </div>
+
+    <div class="output">
+        <h2 class="inp">Output</h2>
+        <div id="output-div" class="loading"></div>
+    </div>
+</div>
+{% endblock body %}

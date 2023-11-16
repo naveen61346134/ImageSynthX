@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+        <script src="/Assets/jss/ssa.js"></script>
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet"
+            href="https://fonts.googleapis.com/css2?family=Happy+Monkey&family=Orbitron&family=Poppins:wght@200;400&display=swap">
+        {% block head %} {% endblock %}
+    </head>
+    <body>
+        <div class="main-head-block">
+            <a href="/" class="main-head"><h1 class="main-head">Image-SynthX</h1></a>
+            <div class="main-udn"></div>
+        </div>
+        <div class="items-parser">
+            <div class="items-wrapper">
+                <p><a class="item-head" href="/real_esrgan">Real Esrgan</a></p>
+            </div>
+            <div class="items-wrapper">
+                <p><a class="item-head" href="/sdxl">Stable Diffusion XL</a></p>
+            </div>
+            <div class="items-wrapper">
+                <p><a class="item-head" href="/lcm">Latent Consistency Model</a></p>
+            </div>
+            <div class="items-wrapper">
+                <p><a class="item-head" href="/codeformer">Codeformer</a></p>
+            </div>
+        </div>
+        {% block body %} {% endblock %}
+    </body>
+</html>
