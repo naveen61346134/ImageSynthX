@@ -1,24 +1,25 @@
 import os
-import time
-import webbrowser
+from time import sleep
+from webbrowser import open as webopen
+from subprocess import Popen
 try:
     from colorama import Fore, Style
 except ImportError:
     print("colorama package not installed\nRun the installer")
-    time.sleep(2)
+    sleep(2)
     exit(0)
 try:
-    import wget
-    import replicate
+    from wget import download
+    from replicate import run
 except ImportError:
     print(Fore.RED + "\t\t Error Loading Packages\n\t\tRun the installer")
-    time.sleep(1)
+    sleep(1)
     exit(0)
 try:
     from banners import main_banner, credits_banner, anything_banner, lcm_banner, sdxl_banner, esrgan_banner, images_banner
 except ImportError:
     print(Style.BRIGHT + Fore.RED + "\t\tError in banners file")
-    time.sleep(2)
+    sleep(2)
     exit(0)
 
 dir_path = os.getcwd()
@@ -30,13 +31,13 @@ def program_init():
             token = t.readline()
         if len(token) <= 10:
             print(Fore.RED + "\t\tINVALID TOKEN")
-            time.sleep(2)
+            sleep(2)
             exit(0)
         else:
             os.environ["REPLICATE_API_TOKEN"] = f"{token}"
     except FileNotFoundError:
         print(Fore.RED + "\t\tTOKEN FILE NOT FOUND!")
-        time.sleep(1)
+        sleep(1)
         exit(0)
     if not os.path.exists("Output"):
         os.system("mkdir Output")
@@ -44,7 +45,7 @@ def program_init():
 
 
 def download(url, out_f, out_file_name, png_check):
-    wget.download(str(url), out=out_f)
+    download(str(url), out=out_f)
     if png_check == True:
         file_ext = f"\\Output\\{out_file_name}.png"
     else:
@@ -52,13 +53,13 @@ def download(url, out_f, out_file_name, png_check):
     exist = dir_path+file_ext
     if os.path.exists(exist):
         print("\nFile Created!")
-        time.sleep(1)
+        sleep(1)
         os.system("cls")
     else:
         print(Fore.RED + "\n\t\tERROR")
-        time.sleep(1)
+        sleep(1)
         os.system("cls")
-    time.sleep(1.5)
+    sleep(1.5)
 
 
 def file_path_and_check(png):
@@ -67,7 +68,7 @@ def file_path_and_check(png):
         Fore.BLUE + "\t\tEnter output file name: " + Fore.CYAN)
     if not os.path.exists(file_path):
         print(Fore.RED + "\t\tFile doesnt exist!")
-        time.sleep(1)
+        sleep(1)
         exit(0)
 
     if png == True:
@@ -104,19 +105,19 @@ def img_searcher():
         elif int(choice) == 0:
             os.system("cls")
             print(Fore.RED + "\t\tInvalid Choice!")
-            time.sleep(1)
+            sleep(1)
             os.system("cls")
             esrgan()
         else:
             os.system("cls")
             print(Fore.RED + "\t\tInvalid Choice!")
-            time.sleep(1)
+            sleep(1)
             os.system("cls")
             esrgan()
     except ValueError:
         os.system("cls")
         print(Fore.RED + "\t\tInvalid Choice!")
-        time.sleep(1)
+        sleep(1)
         os.system("cls")
         esrgan()
 
@@ -134,26 +135,26 @@ def esrgan():
 
     print(Fore.BLUE + "\t\tProcessing...")
     try:
-        output = replicate.run(
+        output = run(
             "nightmareai/real-esrgan:42fed1c4974146d4d2414e2be2c5277c7fcf05fcc3a73abf41610695738c1d7b",
             input={"image": open(file_path, "rb"), "upscale": upscale}
         )
     except Exception as e:
         if "NSFW" in str(e):
             print(Fore.RED + "\t\tNSFW Content Detected!")
-            time.sleep(1)
+            sleep(1)
             loader()
         elif "getaddrinfo" in str(e):
             print(Fore.RED + "\t\tNetwork Error!")
-            time.sleep(1)
+            sleep(1)
             exit(0)
         elif "CUDA" or "memory" in str(e):
             print(Fore.RED + "\t\tMODEL ERROR: CUDA OUT OF MEMORY!")
-            time.sleep(1)
+            sleep(1)
             loader()
         else:
             print(str(e))
-            time.sleep(2)
+            sleep(2)
             loader()
     print(Fore.MAGENTA + "\t\tDownloading...")
     download(str(output), out_f, out_file_name, True)
@@ -176,20 +177,20 @@ def sdxl():
         wDiv8 = len(str(width/8).split(".")[1])
         if wDiv8 > 1:
             print(Fore.RED + "\t\tWidth should be divisible by 8")
-            time.sleep(2)
+            sleep(2)
             loader()
         height = int(input(Fore.BLUE + "\t\tEnter height: " + Fore.CYAN))
         lDiv8 = len(str(height/8).split(".")[1])
         if lDiv8 > 1:
             print(Fore.RED + "\t\tHeight should be divisible by 8")
-            time.sleep(2)
+            sleep(2)
             loader()
     except ValueError:
         width = 720
         height = 720
     print(Fore.BLUE + "\t\tProcessing...")
     try:
-        output = replicate.run(
+        output = run(
             "stability-ai/sdxl:8beff3369e81422112d93b89ca01426147de542cd4684c244b673b105188fe5f",
             input={"prompt": f"{prompt}", "negative_prompt": f"{nPrompt}", "width": width,
                    "height": height, "apply_watermark": False}
@@ -197,15 +198,15 @@ def sdxl():
     except Exception as e:
         if "NSFW" in str(e):
             print(Fore.RED + "NSFW Content Detected")
-            time.sleep(1)
+            sleep(1)
             loader()
         elif "getaddrinfo" in str(e):
             print(Fore.RED + "\t\tNetwork Error")
-            time.sleep(1)
+            sleep(1)
             exit(0)
         elif "CUDA" or "memory" in str(e):
             print(Fore.RED + "\t\tMODEL ERROR: CUDA OUT OF MEMORY")
-            time.sleep(1)
+            sleep(1)
             loader()
         else:
             print(str(e))
@@ -228,20 +229,20 @@ def latent_consistency_model():
         wDiv8 = len(str(width/8).split(".")[1])
         if wDiv8 > 1:
             print(Fore.RED + "\t\tWidth should be divisible by 8")
-            time.sleep(2)
+            sleep(2)
             loader()
-        height = int(input(Fore.BLUE + "\t\tEnter hieight: " + Fore.CYAN))
+        height = int(input(Fore.BLUE + "\t\tEnter height: " + Fore.CYAN))
         lDiv8 = len(str(height/8).split(".")[1])
         if lDiv8 > 1:
             print(Fore.RED + "\t\tHeight should be divisible by 8")
-            time.sleep(2)
+            sleep(2)
             loader()
     except ValueError:
         width = 720
         height = 720
     print(Fore.BLUE + "\t\tProcessing...")
     try:
-        output = replicate.run(
+        output = run(
             "luosiallen/latent-consistency-model:553803fd018b3cf875a8bc774c99da9b33f36647badfd88a6eec90d61c5f62fc",
             input={
                 "prompt": f"{prompt}", "width": width, "height": height}
@@ -249,15 +250,15 @@ def latent_consistency_model():
     except Exception as e:
         if "NSFW" in str(e):
             print("\t\tNSFW Content Detected")
-            time.sleep(1)
+            sleep(1)
             loader()
         elif "getaddrinfo" in str(e):
             print(Fore.RED + "\t\tNetwork Error")
-            time.sleep(1)
+            sleep(1)
             exit(0)
         elif "CUDA" or "memory" in str(e):
             print(Fore.RED + "\t\tMODEL ERROR: CUDA OUT OF MEMORY")
-            time.sleep(1)
+            sleep(1)
             loader()
         else:
             print(str(e))
@@ -279,35 +280,35 @@ def anime_anything():
         wDiv8 = len(str(width/8).split(".")[1])
         if wDiv8 > 1:
             print(Fore.RED + "\t\tWidth should be divisible by 8")
-            time.sleep(2)
+            sleep(2)
             loader()
         height = int(input(Fore.BLUE + "\t\tEnter hieight: " + Fore.CYAN))
         lDiv8 = len(str(height/8).split(".")[1])
         if lDiv8 > 1:
             print(Fore.RED + "\t\tHeight should be divisible by 8")
-            time.sleep(2)
+            sleep(2)
             loader()
     except ValueError:
         width = 512
         height = 512
     print(Fore.BLUE + "\t\tProcessing...")
     try:
-        output = replicate.run(
+        output = run(
             "cjwbw/anything-v4.0:42a996d39a96aedc57b2e0aa8105dea39c9c89d9d266caf6bb4327a1c191b061",
             input={"prompt": prompt, "width": width, "height": height}
         )
     except Exception as e:
         if "NSFW" in str(e):
             print(Fore.RED + "\t\tNSFW Content Detected")
-            time.sleep(1)
+            sleep(1)
             loader()
         elif "getaddrinfo" in str(e):
             print(Fore.RED + "\t\tNetwork Error")
-            time.sleep(1)
+            sleep(1)
             exit(0)
         elif "CUDA" or "memory" in str(e):
             print(Fore.RED + "\t\tMODEL ERROR: CUDA OUT OF MEMORY")
-            time.sleep(1)
+            sleep(1)
             loader()
         else:
             print(str(e))
@@ -319,7 +320,7 @@ def anime_anything():
 def PCredits():
     os.system("cls")
     print(credits_banner)
-    time.sleep(2)
+    sleep(2)
     loader()
 
 
@@ -327,12 +328,13 @@ def web_ui():
     file = "web-ui.py"
     if not os.path.exists(file):
         print(Style.BRIGHT + Fore.RED + "WEB UI File Not Found")
-        time.sleep(2)
+        sleep(2)
         exit(0)
     else:
-        os.system("start web-ui.py")
-        time.sleep(0.5)
-        webbrowser.open("http://127.0.0.1:5000")
+        Popen(
+            ["start", "cmd", "/c", "python", "web-ui.py", "True"], shell=True)
+        sleep(2)
+        webopen("http://127.0.0.1:5000")
 
 
 def loader():
@@ -361,16 +363,16 @@ def loader():
                 PCredits()
             elif choice == "0":
                 print(Fore.RED + "\t\tExiting..")
-                time.sleep(1)
+                sleep(1)
                 os.system("cls")
                 exit(0)
             else:
                 print(Fore.RED + "\t\tInvalid Choice\n")
-                time.sleep(1)
+                sleep(1)
                 os.system("cls")
     except KeyboardInterrupt:
         print(Fore.RED + "\n\t\tKeyboard Interrupt Detected..")
-        time.sleep(1)
+        sleep(1)
         os.system("cls")
         exit(0)
 
