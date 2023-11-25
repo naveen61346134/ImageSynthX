@@ -7,6 +7,19 @@
 {% endblock head %}
 
 {% block body %}
+
+{% with messages = get_flashed_messages() %}
+{% if messages %}
+{% for msg in messages %}
+<div class="error-container">
+    <div class="error-block">
+        <h3 class="flash_errors">{{ msg }}</h3>
+    </div>
+</div>
+{% endfor %}
+{% endif %}
+{% endwith %}
+
 <div class="subs-main-head-block">
     <h2 class="subs-head">Codeformer</h2>
 </div>
