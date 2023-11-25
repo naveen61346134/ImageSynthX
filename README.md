@@ -2,7 +2,7 @@
 
 ## Description
 
-**ImageSynthX**: Unleash the Power of AI Models for High-Resolution Image Synthesis and Enhancement. Transform your images with cutting-edge AI, including **`Real Esrgan`**, **`SDXL (Advanced Stable Diffusion)`**, and **`Cartoonify`**, to generate stunning, high-quality, and razor-sharp visuals.
+**ImageSynthX**: Unleash the Power of AI Models for High-Resolution Image Synthesis and Enhancement. Transform your images with cutting-edge AI, including **`Real Esrgan`**, **`SDXL (Advanced Stable Diffusion)`**, and **`Codeformer`**, to generate stunning, high-quality, and razor-sharp visuals.
 
 ## Table of Contents
 
@@ -30,7 +30,7 @@ To get started with this project, follow these steps:
 2. Navigate to the `Model Access` directory:
 
    ```
-   cd REPLICATE-API-CALLS/Model\ Access
+   cd ImageSynthX/Model\ Access
    ```
 
 3. Install the required dependencies:
@@ -41,10 +41,10 @@ To get started with this project, follow these steps:
 
 ## Usage
 
-To use this project, you need to obtain a **`Replicate API token`** (see [API Token](#api-token) section). Once you have the token, you can run the **`main.py`** script to access Replicate AI models. Here's how to use it:
+To use this project, you need to obtain a **`Replicate API token`** (see [API Token](#api-token) section). Once you have the token, you can run the **`ImageSynthX.py`** script to access Replicate AI models. Here's how to use it:
 
 ```python
-python main.py
+python ImageSynthX.py
 ```
 
 Follow the prompts to select a model and provide any required inputs.
@@ -67,8 +67,9 @@ This project currently supports the following Replicate AI models:
 
 - **Real Esrgan**: Real Esrgan is an advanced AI model that `enhances image resolution` and `upscales content`, producing `sharper` and `more detailed visuals` through deep learning techniques.
 - **SDXL**: SDXL is the evolutionary successor to the `Stable Diffusion AI model`, renowned for its ability to *transform text prompts* into `high-quality`, `photorealistic images`, pushing the boundaries of text-to-image generation.
-- **Cartoonify**: Cartoonify is an AI model that transforms *real images into high-quality cartoon-style representations*, adding a `playful` and `artistic touch` to photographs and visuals.
+- **Codeformer**: A robust face restoration algorithm adept at rejuvenating old photos' faces or crafting AI-generated lifelike facial representations.
 
+  
 > ***NOTE***: Processing may take more time than expected due to cold boot of Ai Models.
 
 Feel free to add more models and documentation as needed.
