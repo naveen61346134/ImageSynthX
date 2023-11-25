@@ -327,6 +327,11 @@ def esrgan_image_processor(image, file_name, upscale, enhance):
         return redirect(url_for("esrgan"))
 
 
+@web_ui.errorhandler(404)
+def page_not_found(e):
+    return render_template("404.html")
+
+
 @web_ui.route("/check_processed_status/<file_name>", methods=['GET'])
 def check_processed_status(file_name):
     processed_image_path = getcwd() + f"/Assets/Output/{file_name}.png"
