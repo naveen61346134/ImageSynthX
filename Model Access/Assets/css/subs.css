@@ -269,3 +269,22 @@ input[type="file"]::file-selector-button:active {
     color: #97CAEF;
     margin: 0px;
 }
+
+.error-container {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    margin-bottom: 10px;
+}
+
+.error-block {
+    height: 21px;
+    width: 700px;
+    background: red;
+    padding: 10px 20px;
+}
+
+.flash_errors {
+    color: white;
+    margin: 0px;
+}
