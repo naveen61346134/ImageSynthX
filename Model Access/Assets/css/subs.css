@@ -288,3 +288,14 @@ input[type="file"]::file-selector-button:active {
     color: white;
     margin: 0px;
 }
+
+.no_exist {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+}
+
+.msg {
+    color: #20B2AA;
+    font-family: 'Orbitron', 'Poppins', sans-serif;
+}
