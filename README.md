@@ -67,7 +67,7 @@ This project currently supports the following Replicate AI models:
 
 - **Real Esrgan**: Real Esrgan is an advanced AI model that `enhances image resolution` and `upscales content`, producing `sharper` and `more detailed visuals` through deep learning techniques.
 - **SDXL**: SDXL is the evolutionary successor to the `Stable Diffusion AI model`, renowned for its ability to *transform text prompts* into `high-quality`, `photorealistic images`, pushing the boundaries of text-to-image generation.
-- **Codeformer**: A robust face restoration algorithm adept at rejuvenating old photos' faces or crafting AI-generated lifelike facial representations.
+- **Codeformer**: A robust face restoration algorithm adept at `rejuvenating old photos`' faces or `crafting AI-generated` lifelike facial representations.
 
   
 > ***NOTE***: Processing may take more time than expected due to cold boot of Ai Models.
