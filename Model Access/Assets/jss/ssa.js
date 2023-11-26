@@ -24,6 +24,7 @@ function checkProcessedStatus() {
 
 // Start checking status once the page is loaded
 $(document).ready(function () {
-    $('form').submit(checkProcessedStatus);
-    checkProcessedStatus(); // Call it once on page load
+    $('form').submit(function () {
+        checkProcessedStatus(); // Call it on form submission
+    });
 });
