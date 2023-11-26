@@ -1,13 +1,14 @@
 html {
-    height: 100%;
     width: 100%;
-    background: linear-gradient(#116466, #2C3531);
 }
 
 body {
+    background: linear-gradient(#116466, #2C3531);
+    height: 100%;
+    width: auto;
     font-family: 'Poppins', sans-serif;
     text-align: center;
-    margin: 20px 21px 10px 21px;
+    margin: 20px 21px 20px 21px;
 }
 
 .main-head {
@@ -25,7 +26,6 @@ body {
     font-style: normal;
     font-weight: bold;
     margin-bottom: 0px;
-    margin-left: 10px;
     color: #5680E9;
 }
 
@@ -37,10 +37,27 @@ body {
 }
 
 .gallery-udn {
-    margin: none;
+    margin-left: auto;
+    margin-right: auto;
     height: 2px;
     width: 250px;
     background: #45A29E;
+}
+
+.gallery-head-block {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.mover-block {
+    display: flex;
+}
+
+.gallery-brief {
+    color: aqua;
+    display: flex;
+    margin-bottom: 26px;
 }
 
 .items-wrapper {
@@ -69,19 +86,10 @@ body {
 
 .items-parser {
     margin-top: 10px;
-    margin-bottom: 40px;
+    margin-bottom: 20px;
     display: flex;
     flex-direction: row;
     justify-content: center;
-}
-
-.gallery-block {
-    text-align: start;
-}
-
-.image-block {
-    margin-top: 30px;
-    display: flex;
 }
 
 .image {
@@ -146,20 +154,22 @@ body {
     border-radius: 5px;
 }
 
-.about-contact {
-    margin: 30px auto 5px auto;
+.image-block {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
 }
 
 .contact-info {
-    font-family: "Orbitron", sans-serif;
-    margin-bottom: 5px;
-    font-style: italic;
-    opacity: 70%;
+    font-family: 'Orbitron', 'Poppins', sans-serif;
+    font-size: medium;
+    font-weight: 400;
+    font-style: normal;
+    margin-bottom: 0px;
+    margin-top: 30px;
+    color: rgb(55, 240, 203);
 }
 
-.gallery-brief {
-    opacity: 70%;
-    font-weight: lighter;
-    color: aqua;
-    margin: 5px auto 0px auto;
+.svgs {
+    margin-bottom: auto;
 }
