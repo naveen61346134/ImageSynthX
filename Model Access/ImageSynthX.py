@@ -1,9 +1,7 @@
-from os import getcwd, environ, system, listdir
+import os
+from time import sleep
 from webbrowser import open as webopen
 from subprocess import Popen
-from os.path import exists
-from time import sleep
-
 try:
     from colorama import Fore, Style
 except ImportError:
@@ -11,20 +9,20 @@ except ImportError:
     sleep(2)
     exit(0)
 try:
-    from wget import download
+    from wget import download as dwn
     from replicate import run
 except ImportError:
     print(Fore.RED + "\t\t Error Loading Packages\n\t\tRun the installer")
     sleep(1)
     exit(0)
 try:
-    from banners import main_banner, credits_banner, anything_banner, lcm_banner, sdxl_banner, esrgan_banner, images_banner
+    from banners import main_banner, credits_banner, lcm_banner, codeformer_banner, sdxl_banner, esrgan_banner, images_banner
 except ImportError:
     print(Style.BRIGHT + Fore.RED + "\t\tError in banners file")
     sleep(2)
     exit(0)
 
-dir_path = getcwd()
+dir_path = os.getcwd()
 
 
 def program_init():
@@ -36,31 +34,50 @@ def program_init():
             sleep(2)
             exit(0)
         else:
-            environ["REPLICATE_API_TOKEN"] = f"{token}"
+            os.environ["REPLICATE_API_TOKEN"] = f"{token}"
     except FileNotFoundError:
         print(Fore.RED + "\t\tTOKEN FILE NOT FOUND!")
         sleep(1)
         exit(0)
-    if not exists("Output"):
-        system("mkdir Output")
+    if not os.path.exists("Output"):
+        os.system("mkdir Output")
         print(Fore.CYAN + "Output folder has been created!")
 
 
+def exceptionizer(exception):
+    if "NSFW" in str(exception):
+        print(Fore.RED + "\t\tNSFW Content Detected!")
+        sleep(1)
+        loader()
+    elif "getaddrinfo" in str(exception):
+        print(Fore.RED + "\t\tNetwork Error!")
+        sleep(1)
+        exit(0)
+    elif "CUDA" or "memory" in str(exception):
+        print(Fore.RED + "\t\tMODEL ERROR: CUDA OUT OF MEMORY!")
+        sleep(1)
+        loader()
+    else:
+        print(str(exception))
+        sleep(2)
+        loader()
+
+
 def download(url, out_f, out_file_name, png_check):
-    download(str(url), out=out_f)
+    dwn(str(url), out=out_f)
     if png_check == True:
         file_ext = f"\\Output\\{out_file_name}.png"
     else:
         file_ext = f"\\Output\\{out_file_name}.jpeg"
     exist = dir_path+file_ext
-    if exists(exist):
+    if os.path.exists(exist):
         print("\nFile Created!")
         sleep(1)
-        system("cls")
+        os.system("cls")
     else:
         print(Fore.RED + "\n\t\tERROR")
         sleep(1)
-        system("cls")
+        os.system("cls")
     sleep(1.5)
 
 
@@ -68,7 +85,7 @@ def file_path_and_check(png):
     file_path = img_searcher()
     out_file_name = input(
         Fore.BLUE + "\t\tEnter output file name: " + Fore.CYAN)
-    if not exists(file_path):
+    if not os.path.exists(file_path):
         print(Fore.RED + "\t\tFile doesnt exist!")
         sleep(1)
         exit(0)
@@ -85,7 +102,7 @@ def img_searcher():
     print(images_banner)
     img_path = dir_path + "\\Output"
     extensions = [".png", ".jpg", ".jpeg"]
-    images = listdir(img_path)
+    images = os.listdir(img_path)
 
     for img in range(len(images)):
         for ext in extensions:
@@ -105,22 +122,22 @@ def img_searcher():
         elif int(choice) <= len(images) and int(choice) != 0:
             file = f"{img_path}\\{images[int(choice)-1]}"
         elif int(choice) == 0:
-            system("cls")
+            os.system("cls")
             print(Fore.RED + "\t\tInvalid Choice!")
             sleep(1)
-            system("cls")
+            os.system("cls")
             esrgan()
         else:
-            system("cls")
+            os.system("cls")
             print(Fore.RED + "\t\tInvalid Choice!")
             sleep(1)
-            system("cls")
+            os.system("cls")
             esrgan()
     except ValueError:
-        system("cls")
+        os.system("cls")
         print(Fore.RED + "\t\tInvalid Choice!")
         sleep(1)
-        system("cls")
+        os.system("cls")
         esrgan()
 
     return file
@@ -142,22 +159,7 @@ def esrgan():
             input={"image": open(file_path, "rb"), "upscale": upscale}
         )
     except Exception as e:
-        if "NSFW" in str(e):
-            print(Fore.RED + "\t\tNSFW Content Detected!")
-            sleep(1)
-            loader()
-        elif "getaddrinfo" in str(e):
-            print(Fore.RED + "\t\tNetwork Error!")
-            sleep(1)
-            exit(0)
-        elif "CUDA" or "memory" in str(e):
-            print(Fore.RED + "\t\tMODEL ERROR: CUDA OUT OF MEMORY!")
-            sleep(1)
-            loader()
-        else:
-            print(str(e))
-            sleep(2)
-            loader()
+        exceptionizer(str(e))
     print(Fore.MAGENTA + "\t\tDownloading...")
     download(str(output), out_f, out_file_name, True)
 
@@ -198,20 +200,7 @@ def sdxl():
                    "height": height, "apply_watermark": False}
         )
     except Exception as e:
-        if "NSFW" in str(e):
-            print(Fore.RED + "NSFW Content Detected")
-            sleep(1)
-            loader()
-        elif "getaddrinfo" in str(e):
-            print(Fore.RED + "\t\tNetwork Error")
-            sleep(1)
-            exit(0)
-        elif "CUDA" or "memory" in str(e):
-            print(Fore.RED + "\t\tMODEL ERROR: CUDA OUT OF MEMORY")
-            sleep(1)
-            loader()
-        else:
-            print(str(e))
+        exceptionizer(str(e))
 
     out_f = dir_path + f"\\Output\\{out_file_name}.jpeg"
     print(Fore.MAGENTA + "\t\tDownloading...")
@@ -250,84 +239,44 @@ def latent_consistency_model():
                 "prompt": f"{prompt}", "width": width, "height": height}
         )
     except Exception as e:
-        if "NSFW" in str(e):
-            print("\t\tNSFW Content Detected")
-            sleep(1)
-            loader()
-        elif "getaddrinfo" in str(e):
-            print(Fore.RED + "\t\tNetwork Error")
-            sleep(1)
-            exit(0)
-        elif "CUDA" or "memory" in str(e):
-            print(Fore.RED + "\t\tMODEL ERROR: CUDA OUT OF MEMORY")
-            sleep(1)
-            loader()
-        else:
-            print(str(e))
+        exceptionizer(str(e))
     out_f = dir_path + f"\\Output\\{out_file_name}.png"
     print(Fore.MAGENTA + "\t\tDownloading...")
     download(str(output[0]), out_f, out_file_name, True)
 
 
-def anime_anything():
-    print(anything_banner)
-    print(Style.BRIGHT + Fore.YELLOW + "\t\tEnter 'X' to go back to menu")
-    prompt = input(Fore.BLUE + "\t\tEnter prompt for image: " + Fore.CYAN)
-    if prompt == "X" or prompt == "x":
-        loader()
-    out_file_name = input(
-        Fore.BLUE + "\t\tEnter output file name: " + Fore.CYAN)
+def codeformer():
+    print(codeformer_banner)
+    file_path, out_f, out_file_name = file_path_and_check(True)
     try:
-        width = int(input(Fore.BLUE + "\t\tEnter width: " + Fore.CYAN))
-        wDiv8 = len(str(width/8).split(".")[1])
-        if wDiv8 > 1:
-            print(Fore.RED + "\t\tWidth should be divisible by 8")
-            sleep(2)
-            loader()
-        height = int(input(Fore.BLUE + "\t\tEnter hieight: " + Fore.CYAN))
-        lDiv8 = len(str(height/8).split(".")[1])
-        if lDiv8 > 1:
-            print(Fore.RED + "\t\tHeight should be divisible by 8")
-            sleep(2)
-            loader()
+        upscale = int(
+            input(Fore.BLUE + "\t\tEnter upscale value: " + Fore.CYAN))
     except ValueError:
-        width = 512
-        height = 512
+        upscale = 2
+
     print(Fore.BLUE + "\t\tProcessing...")
     try:
         output = run(
-            "cjwbw/anything-v4.0:42a996d39a96aedc57b2e0aa8105dea39c9c89d9d266caf6bb4327a1c191b061",
-            input={"prompt": prompt, "width": width, "height": height}
+            "sczhou/codeformer:7de2ea26c616d5bf2245ad0d5e24f0ff9a6204578a5c876db53142edd9d2cd56",
+            input={"image": open(file_path, "rb"),
+                   "upscale": upscale, "background_enhance": True}
         )
     except Exception as e:
-        if "NSFW" in str(e):
-            print(Fore.RED + "\t\tNSFW Content Detected")
-            sleep(1)
-            loader()
-        elif "getaddrinfo" in str(e):
-            print(Fore.RED + "\t\tNetwork Error")
-            sleep(1)
-            exit(0)
-        elif "CUDA" or "memory" in str(e):
-            print(Fore.RED + "\t\tMODEL ERROR: CUDA OUT OF MEMORY")
-            sleep(1)
-            loader()
-        else:
-            print(str(e))
+        exceptionizer(str(e))
     print(Fore.MAGENTA + "\t\tDownloading...")
-    out_f = dir_path + f"\\{out_file_name}.png"
-    download(str(output[0]), out_f, out_file_name, True)
+    download(str(output), out_f, out_file_name, True)
 
 
 def PCredits():
-    system("cls")
+    os.system("cls")
     print(credits_banner)
     sleep(2)
+    loader()
 
 
 def web_ui():
     file = "web-ui.py"
-    if not exists(file):
+    if not os.path.exists(file):
         print(Style.BRIGHT + Fore.RED + "WEB UI File Not Found")
         sleep(2)
         exit(0)
@@ -340,41 +289,41 @@ def web_ui():
 
 def loader():
     try:
-        system("cls")
+        os.system("cls")
         while True:
             print(main_banner)
             choice = input(Fore.BLUE + Style.BRIGHT +
                            "\n\t\tEnter choice: " + Fore.CYAN)
             if choice == "1":
-                system("cls")
+                os.system("cls")
                 web_ui()
             elif choice == "2":
-                system("cls")
+                os.system("cls")
                 esrgan()
             elif choice == "3":
-                system("cls")
+                os.system("cls")
                 sdxl()
             elif choice == "4":
-                system("cls")
+                os.system("cls")
                 latent_consistency_model()
             elif choice == "5":
-                system("cls")
-                anime_anything()
+                os.system("cls")
+                codeformer()
             elif choice == "C":
                 PCredits()
             elif choice == "0":
                 print(Fore.RED + "\t\tExiting..")
                 sleep(1)
-                system("cls")
+                os.system("cls")
                 exit(0)
             else:
                 print(Fore.RED + "\t\tInvalid Choice\n")
                 sleep(1)
-                system("cls")
+                os.system("cls")
     except KeyboardInterrupt:
         print(Fore.RED + "\n\t\tKeyboard Interrupt Detected..")
         sleep(1)
-        system("cls")
+        os.system("cls")
         exit(0)
 
 
