@@ -11,9 +11,8 @@ function checkProcessedStatus() {
                 $('#output-div').css('background-image', 'url(' + response.result_url + '.png' + ')');
                 console.log("Changed background to:" + response.result_url + ".png")
             } else {
-                // Continue checking
-                setTimeout(checkProcessedStatus, 1000); // Check every second
-                document.getElementById('output-div').style.backgroundImage = 'url("/Assets/gifs/loader2.gif")';
+                setTimeout(checkProcessedStatus, 1000);
+                console.log("Waiting for file")
             }
         },
         error: function () {
@@ -22,9 +21,10 @@ function checkProcessedStatus() {
     });
 }
 
-// Start checking status once the page is loaded
 $(document).ready(function () {
+    checkProcessedStatus();
     $('form').submit(function () {
-        checkProcessedStatus(); // Call it on form submission
+        document.getElementById('output-div').style.backgroundImage = 'url("/Assets/gifs/loader2.gif")';
+        checkProcessedStatus();
     });
 });
