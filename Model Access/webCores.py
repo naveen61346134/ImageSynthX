@@ -4,7 +4,7 @@ except ImportError:
     print("Flask Not Found  (Run the installer)")
 from os.path import exists, dirname
 try:
-    from wget import download
+    from wget import download as dwn
 except ImportError:
     print("Wget Not Found  (Run the installer)")
 try:
@@ -19,7 +19,7 @@ dir_name = dirname(__file__)
 
 
 def download(url, out_f, out_file_name):
-    download(str(url), out=out_f)
+    dwn(str(url), out=out_f)
     file_ext = f"\{out_file_name}.png"
     exist = dir_path+file_ext
     if exists(exist):
