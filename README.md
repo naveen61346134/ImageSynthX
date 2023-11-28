@@ -83,6 +83,12 @@ Below are some of the images produced using this project.
 
 ![OUTPUT 3](https://github.com/naveen61346134/ImageSynthX-Outputs/blob/main/cat.jpeg)
 
+![OUTPUT 4](https://github.com/naveen61346134/ImageSynthX-Outputs/blob/main/cyberpunk-albert.png)
+
+![OUTPUT 5](https://github.com/naveen61346134/ImageSynthX-Outputs/blob/main/cyber4k.png)
+
+![OUTPUT 6](https://github.com/naveen61346134/ImageSynthX-Outputs/blob/main/cyber-punk-city.jpeg)
+
 ## Contributing
 
 If you'd like to contribute to this project, please follow these guidelines:
