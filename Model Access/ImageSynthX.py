@@ -1,7 +1,9 @@
-import os
-from time import sleep
+from os import getcwd, environ, system, listdir
 from webbrowser import open as webopen
 from subprocess import Popen
+from os.path import exists
+from time import sleep
+
 try:
     from colorama import Fore, Style
 except ImportError:
@@ -22,7 +24,7 @@ except ImportError:
     sleep(2)
     exit(0)
 
-dir_path = os.getcwd()
+dir_path = getcwd()
 
 
 def program_init():
@@ -34,13 +36,13 @@ def program_init():
             sleep(2)
             exit(0)
         else:
-            os.environ["REPLICATE_API_TOKEN"] = f"{token}"
+            environ["REPLICATE_API_TOKEN"] = f"{token}"
     except FileNotFoundError:
         print(Fore.RED + "\t\tTOKEN FILE NOT FOUND!")
         sleep(1)
         exit(0)
-    if not os.path.exists("Output"):
-        os.system("mkdir Output")
+    if not exists("Output"):
+        system("mkdir Output")
         print(Fore.CYAN + "Output folder has been created!")
 
 
@@ -51,14 +53,14 @@ def download(url, out_f, out_file_name, png_check):
     else:
         file_ext = f"\\Output\\{out_file_name}.jpeg"
     exist = dir_path+file_ext
-    if os.path.exists(exist):
+    if exists(exist):
         print("\nFile Created!")
         sleep(1)
-        os.system("cls")
+        system("cls")
     else:
         print(Fore.RED + "\n\t\tERROR")
         sleep(1)
-        os.system("cls")
+        system("cls")
     sleep(1.5)
 
 
@@ -66,7 +68,7 @@ def file_path_and_check(png):
     file_path = img_searcher()
     out_file_name = input(
         Fore.BLUE + "\t\tEnter output file name: " + Fore.CYAN)
-    if not os.path.exists(file_path):
+    if not exists(file_path):
         print(Fore.RED + "\t\tFile doesnt exist!")
         sleep(1)
         exit(0)
@@ -83,7 +85,7 @@ def img_searcher():
     print(images_banner)
     img_path = dir_path + "\\Output"
     extensions = [".png", ".jpg", ".jpeg"]
-    images = os.listdir(img_path)
+    images = listdir(img_path)
 
     for img in range(len(images)):
         for ext in extensions:
@@ -103,22 +105,22 @@ def img_searcher():
         elif int(choice) <= len(images) and int(choice) != 0:
             file = f"{img_path}\\{images[int(choice)-1]}"
         elif int(choice) == 0:
-            os.system("cls")
+            system("cls")
             print(Fore.RED + "\t\tInvalid Choice!")
             sleep(1)
-            os.system("cls")
+            system("cls")
             esrgan()
         else:
-            os.system("cls")
+            system("cls")
             print(Fore.RED + "\t\tInvalid Choice!")
             sleep(1)
-            os.system("cls")
+            system("cls")
             esrgan()
     except ValueError:
-        os.system("cls")
+        system("cls")
         print(Fore.RED + "\t\tInvalid Choice!")
         sleep(1)
-        os.system("cls")
+        system("cls")
         esrgan()
 
     return file
@@ -318,15 +320,14 @@ def anime_anything():
 
 
 def PCredits():
-    os.system("cls")
+    system("cls")
     print(credits_banner)
     sleep(2)
-    loader()
 
 
 def web_ui():
     file = "web-ui.py"
-    if not os.path.exists(file):
+    if not exists(file):
         print(Style.BRIGHT + Fore.RED + "WEB UI File Not Found")
         sleep(2)
         exit(0)
@@ -339,41 +340,41 @@ def web_ui():
 
 def loader():
     try:
-        os.system("cls")
+        system("cls")
         while True:
             print(main_banner)
             choice = input(Fore.BLUE + Style.BRIGHT +
                            "\n\t\tEnter choice: " + Fore.CYAN)
             if choice == "1":
-                os.system("cls")
+                system("cls")
                 web_ui()
             elif choice == "2":
-                os.system("cls")
+                system("cls")
                 esrgan()
             elif choice == "3":
-                os.system("cls")
+                system("cls")
                 sdxl()
             elif choice == "4":
-                os.system("cls")
+                system("cls")
                 latent_consistency_model()
             elif choice == "5":
-                os.system("cls")
+                system("cls")
                 anime_anything()
             elif choice == "C":
                 PCredits()
             elif choice == "0":
                 print(Fore.RED + "\t\tExiting..")
                 sleep(1)
-                os.system("cls")
+                system("cls")
                 exit(0)
             else:
                 print(Fore.RED + "\t\tInvalid Choice\n")
                 sleep(1)
-                os.system("cls")
+                system("cls")
     except KeyboardInterrupt:
         print(Fore.RED + "\n\t\tKeyboard Interrupt Detected..")
         sleep(1)
-        os.system("cls")
+        system("cls")
         exit(0)
 
 
