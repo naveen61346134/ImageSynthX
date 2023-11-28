@@ -53,6 +53,20 @@ def program_init():
         print("Output folder has been created!")
 
 
+def exceptionizer(exception):
+    if "NSFW" in str(exception):
+        print("\t\tNSFW Content Detected")
+        flash("NSFW Content Detected")
+    elif "getaddrinfo" in str(exception):
+        print("\t\tNetwork Error")
+        flash("Network Error")
+    elif "CUDA" or "memory" in str(exception):
+        print("\t\tMODEL ERROR: CUDA OUT OF MEMORY")
+        flash("Model Error: CUDA OUT OF MEMORY")
+    else:
+        print(str(exception))
+
+
 @web_ui.route("/")
 def main():
     return render_template("synthx.html")
@@ -90,17 +104,7 @@ def codeformer_processor(image, file_name, upscale, enhance):
         )
         output_bool = bool(output)
     except Exception as e:
-        if "NSFW" in str(e):
-            print("\t\tNSFW Content Detected")
-            flash("NSFW Content Detected")
-        elif "getaddrinfo" in str(e):
-            print("\t\tNetwork Error")
-            flash("Network Error")
-        elif "CUDA" or "memory" in str(e):
-            print("\t\tMODEL ERROR: CUDA OUT OF MEMORY")
-            flash("Model Error: CUDA OUT OF MEMORY")
-        else:
-            print(str(e))
+        exceptionizer(str(e))
 
     if output_bool:
         status = download(str(output), out_f, out_file_name)
@@ -161,17 +165,7 @@ def lcm_image_processor(prompt, filename, height, width):
         )
         output_bool = bool(output)
     except Exception as e:
-        if "NSFW" in str(e):
-            print("\t\tNSFW Content Detected")
-            flash("NSFW Content Detected")
-        elif "getaddrinfo" in str(e):
-            print("\t\tNetwork Error")
-            flash("Network Error")
-        elif "CUDA" or "memory" in str(e):
-            print("\t\tMODEL ERROR: CUDA OUT OF MEMORY")
-            flash("Model Error: CUDA OUT OF MEMORY")
-        else:
-            print(str(e))
+        exceptionizer(str(e))
 
     if output_bool:
         out_f = dir_path + f"\{filename}.png"
@@ -231,17 +225,7 @@ def sdxl_image_processor(prompt, nprompt, filename, height, width):
         )
         output_bool = bool(output)
     except Exception as e:
-        if "NSFW" in str(e):
-            print("\t\tNSFW Content Detected")
-            flash("NSFW Content Detected")
-        elif "getaddrinfo" in str(e):
-            print("\t\tNetwork Error")
-            flash("Network Error")
-        elif "CUDA" or "memory" in str(e):
-            print("\t\tMODEL ERROR: CUDA OUT OF MEMORY")
-            flash("Model Error: CUDA OUT OF MEMORY")
-        else:
-            print(str(e))
+        exceptionizer(str(e))
 
     if output_bool:
         out_f = dir_path + f"\{filename}.png"
@@ -296,17 +280,7 @@ def esrgan_image_processor(image, file_name, upscale, enhance):
         )
         output_bool = bool(output)
     except Exception as e:
-        if "NSFW" in str(e):
-            print("\t\tNSFW Content Detected")
-            flash("NSFW Content Detected")
-        elif "getaddrinfo" in str(e):
-            print("\t\tNetwork Error")
-            flash("Network Error")
-        elif "CUDA" or "memory" in str(e):
-            print("\t\tMODEL ERROR: CUDA OUT OF MEMORY")
-            flash("Model Error: CUDA OUT OF MEMORY")
-        else:
-            print(str(e))
+        exceptionizer(str(e))
     if output_bool:
         status = download(str(output), out_f, out_file_name)
         if status == True:
